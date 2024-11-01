@@ -9,7 +9,130 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      conversations: {
+        Row: {
+          client_phone: string
+          context: Json | null
+          created_at: string
+          id: string
+          persona_id: string | null
+          status: Database["public"]["Enums"]["conversation_status"] | null
+          updated_at: string
+        }
+        Insert: {
+          client_phone: string
+          context?: Json | null
+          created_at?: string
+          id?: string
+          persona_id?: string | null
+          status?: Database["public"]["Enums"]["conversation_status"] | null
+          updated_at?: string
+        }
+        Update: {
+          client_phone?: string
+          context?: Json | null
+          created_at?: string
+          id?: string
+          persona_id?: string | null
+          status?: Database["public"]["Enums"]["conversation_status"] | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversations_persona_id_fkey"
+            columns: ["persona_id"]
+            isOneToOne: false
+            referencedRelation: "personas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          content: string
+          conversation_id: string | null
+          created_at: string
+          id: string
+          is_from_client: boolean
+        }
+        Insert: {
+          content: string
+          conversation_id?: string | null
+          created_at?: string
+          id?: string
+          is_from_client: boolean
+        }
+        Update: {
+          content?: string
+          conversation_id?: string | null
+          created_at?: string
+          id?: string
+          is_from_client?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      personas: {
+        Row: {
+          age: number | null
+          avoid_words: string[] | null
+          backstory: string | null
+          conversation_style: string | null
+          created_at: string
+          formality_level: string | null
+          id: string
+          interests: string[] | null
+          name: string
+          preferred_response_length: string | null
+          preferred_words: string[] | null
+          tone: string | null
+          typical_phrases: string[] | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          age?: number | null
+          avoid_words?: string[] | null
+          backstory?: string | null
+          conversation_style?: string | null
+          created_at?: string
+          formality_level?: string | null
+          id?: string
+          interests?: string[] | null
+          name: string
+          preferred_response_length?: string | null
+          preferred_words?: string[] | null
+          tone?: string | null
+          typical_phrases?: string[] | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          age?: number | null
+          avoid_words?: string[] | null
+          backstory?: string | null
+          conversation_style?: string | null
+          created_at?: string
+          formality_level?: string | null
+          id?: string
+          interests?: string[] | null
+          name?: string
+          preferred_response_length?: string | null
+          preferred_words?: string[] | null
+          tone?: string | null
+          typical_phrases?: string[] | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +141,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      conversation_status: "active" | "archived" | "blocked"
     }
     CompositeTypes: {
       [_ in never]: never
