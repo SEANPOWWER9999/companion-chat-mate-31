@@ -3,10 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 const Profile = () => {
   const [name, setName] = useState("");
+  const [apiKey, setApiKey] = useState("");
+  const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
@@ -26,6 +28,8 @@ const Profile = () => {
         
         if (persona) {
           setName(persona.name);
+          setApiKey(persona.httpsms_api_key || '');
+          setPhone(persona.httpsms_phone || '');
         }
       }
     } catch (error: any) {
@@ -50,6 +54,8 @@ const Profile = () => {
         .upsert({
           user_id: user.id,
           name,
+          httpsms_api_key: apiKey,
+          httpsms_phone: phone,
         });
 
       if (error) throw error;
@@ -86,6 +92,25 @@ const Profile = () => {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your name"
               />
+            </div>
+            <div className="space-y-2">
+              <label>httpSMS API Key</label>
+              <Input
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                placeholder="Your httpSMS API Key"
+                type="password"
+              />
+              <p className="text-sm text-gray-500">Get your API key from <a href="https://httpsms.com/settings" target="_blank" rel="noopener noreferrer" className="text-blue-500">httpSMS settings</a></p>
+            </div>
+            <div className="space-y-2">
+              <label>Phone Number</label>
+              <Input
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+1234567890"
+              />
+              <p className="text-sm text-gray-500">Enter the phone number associated with your httpSMS account</p>
             </div>
             <Button type="submit">Update Profile</Button>
           </form>
