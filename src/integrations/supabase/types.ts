@@ -87,6 +87,8 @@ export type Database = {
           conversation_style: string | null
           created_at: string
           formality_level: string | null
+          httpsms_api_key: string | null
+          httpsms_phone: string | null
           id: string
           interests: string[] | null
           name: string
@@ -104,6 +106,8 @@ export type Database = {
           conversation_style?: string | null
           created_at?: string
           formality_level?: string | null
+          httpsms_api_key?: string | null
+          httpsms_phone?: string | null
           id?: string
           interests?: string[] | null
           name: string
@@ -121,6 +125,8 @@ export type Database = {
           conversation_style?: string | null
           created_at?: string
           formality_level?: string | null
+          httpsms_api_key?: string | null
+          httpsms_phone?: string | null
           id?: string
           interests?: string[] | null
           name?: string
