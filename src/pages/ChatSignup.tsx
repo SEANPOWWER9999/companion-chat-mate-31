@@ -13,10 +13,11 @@ interface Message {
 
 const ChatSignup = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { content: "Hi there! 👋 Let's get you set up with an account. First, what's your email?", isBot: true }
+    { content: "Hey there! 🔥 I'm HotBot, your friendly neighborhood chat assistant! I'll be helping you set up your amazing new account today. First things first - what's your name? 😊", isBot: true }
   ]);
-  const [currentStep, setCurrentStep] = useState<'email' | 'password' | 'complete'>('email');
+  const [currentStep, setCurrentStep] = useState<'name' | 'email' | 'password' | 'complete'>('name');
   const [userInput, setUserInput] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { toast } = useToast();
@@ -29,10 +30,17 @@ const ChatSignup = () => {
     // Add user message to chat
     setMessages(prev => [...prev, { content: userInput, isBot: false }]);
 
-    if (currentStep === 'email') {
+    if (currentStep === 'name') {
+      setName(userInput);
+      setMessages(prev => [...prev, { 
+        content: `Amazing to meet you, ${userInput}! 🌟 I can tell we're going to be great friends! Now, could you share your email address with me? I promise I won't spam you with hot takes! 😉`, 
+        isBot: true 
+      }]);
+      setCurrentStep('email');
+    } else if (currentStep === 'email') {
       if (!userInput.includes('@')) {
         setMessages(prev => [...prev, { 
-          content: "That doesn't look like a valid email. Could you please try again?", 
+          content: `Oops! ${name}, that doesn't quite look like an email address. Could you double-check that for me? 🤔`, 
           isBot: true 
         }]);
         setUserInput("");
@@ -40,14 +48,14 @@ const ChatSignup = () => {
       }
       setEmail(userInput);
       setMessages(prev => [...prev, { 
-        content: "Great! Now, please create a password (at least 6 characters):", 
+        content: `Perfect email, ${name}! 🎯 Last thing - let's set up a secure password (at least 6 characters). Make it hot, but not so hot that you'll forget it! 🔒`, 
         isBot: true 
       }]);
       setCurrentStep('password');
     } else if (currentStep === 'password') {
       if (userInput.length < 6) {
         setMessages(prev => [...prev, { 
-          content: "Your password needs to be at least 6 characters long. Please try again:", 
+          content: `${name}, that password is a bit too cool - we need at least 6 characters to keep things secure! Try again? 💪`, 
           isBot: true 
         }]);
         setUserInput("");
@@ -65,12 +73,12 @@ const ChatSignup = () => {
         if (error) throw error;
 
         setMessages(prev => [...prev, { 
-          content: "Perfect! I've created your account. Check your email to verify your address, then you can log in!", 
+          content: `Woohoo! ${name}, we did it! 🎉 I've created your super-hot account! Check your email to verify your address, and then we can get this party started! 🚀`, 
           isBot: true 
         }]);
 
         toast({
-          title: "Success!",
+          title: "Success! 🎯",
           description: "Please check your email to verify your account.",
         });
 
@@ -80,7 +88,7 @@ const ChatSignup = () => {
 
       } catch (error: any) {
         setMessages(prev => [...prev, { 
-          content: `Oops! Something went wrong: ${error.message}. Let's start over.`, 
+          content: `Oh snap! ${name}, we hit a snag: ${error.message}. Let's start fresh! 🔄`, 
           isBot: true 
         }]);
         setCurrentStep('email');
@@ -101,8 +109,8 @@ const ChatSignup = () => {
               <div
                 className={`max-w-[80%] p-3 rounded-lg ${
                   message.isBot
-                    ? 'bg-gray-200 text-gray-800 rounded-tl-none'
-                    : 'bg-blue-500 text-white rounded-tr-none'
+                    ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-tl-none'
+                    : 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-tr-none'
                 }`}
               >
                 {message.content}
@@ -114,12 +122,18 @@ const ChatSignup = () => {
           <div className="flex gap-2">
             <Input
               type={currentStep === 'password' ? 'password' : 'text'}
-              placeholder={currentStep === 'email' ? "Enter your email..." : "Enter your password..."}
+              placeholder={
+                currentStep === 'name' ? "Enter your name..." :
+                currentStep === 'email' ? "Enter your email..." :
+                "Enter your password..."
+              }
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               className="flex-1"
             />
-            <Button type="submit">Send</Button>
+            <Button type="submit" className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
+              Send
+            </Button>
           </div>
         </form>
       </Card>
