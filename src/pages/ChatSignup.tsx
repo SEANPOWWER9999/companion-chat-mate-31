@@ -23,6 +23,24 @@ const ChatSignup = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
+  const handleGoogleSignup = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/profile`
+        }
+      });
+      if (error) throw error;
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleUserInput = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userInput.trim()) return;
@@ -100,6 +118,15 @@ const ChatSignup = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-100 via-purple-100 to-indigo-100 p-4">
       <Card className="w-full max-w-md h-[600px] flex flex-col bg-white/80 backdrop-blur-lg">
+        <div className="p-4 border-b bg-gradient-to-r from-pink-500 to-purple-500 rounded-t-lg">
+          <Button 
+            onClick={handleGoogleSignup}
+            variant="secondary"
+            className="w-full bg-white hover:bg-gray-100 text-gray-800"
+          >
+            ⚡️ Skip Chat & Sign Up with Google
+          </Button>
+        </div>
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.map((message, index) => (
             <div
