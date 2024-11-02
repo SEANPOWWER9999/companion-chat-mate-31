@@ -34,6 +34,21 @@ const Signup = () => {
     }
   };
 
+  const handleGoogleSignup = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+      });
+      if (error) throw error;
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
@@ -60,6 +75,17 @@ const Signup = () => {
               />
             </div>
             <Button type="submit" className="w-full">Sign Up</Button>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+              </div>
+            </div>
+            <Button type="button" variant="outline" className="w-full" onClick={handleGoogleSignup}>
+              Google
+            </Button>
           </form>
         </CardContent>
       </Card>
