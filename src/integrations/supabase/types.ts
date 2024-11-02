@@ -241,6 +241,36 @@ export type Database = {
         }
         Relationships: []
       }
+      platform_settings: {
+        Row: {
+          btc_wallet_address: string
+          created_at: string
+          id: string
+          ltc_wallet_address: string
+          payment_provider: string
+          provider_api_key: string | null
+          updated_at: string
+        }
+        Insert: {
+          btc_wallet_address: string
+          created_at?: string
+          id?: string
+          ltc_wallet_address: string
+          payment_provider: string
+          provider_api_key?: string | null
+          updated_at?: string
+        }
+        Update: {
+          btc_wallet_address?: string
+          created_at?: string
+          id?: string
+          ltc_wallet_address?: string
+          payment_provider?: string
+          provider_api_key?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       subscriptions: {
         Row: {
           created_at: string
