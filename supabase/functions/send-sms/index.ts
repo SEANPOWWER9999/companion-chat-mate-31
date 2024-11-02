@@ -17,17 +17,6 @@ interface SendSMSBody {
   is_archived?: boolean;
 }
 
-interface MessageThread {
-  id: string;
-  owner: string;
-  contact: string;
-  is_archived: boolean;
-  color: string;
-  status: string;
-  last_message_content: string;
-  last_message_id: string;
-}
-
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -39,64 +28,78 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    const { to, content, personaId, scheduled_send_time, sim, request_id, color, is_archived } = await req.json() as SendSMSBody;
+    const { to, content, personaId } = await req.json() as SendSMSBody;
 
-    // Get the persona's API key and phone number
+    // Get the persona's details including conversation preferences
     const { data: persona, error: personaError } = await supabase
       .from('personas')
-      .select('httpsms_api_key, httpsms_phone')
+      .select('*')
       .eq('id', personaId)
       .single();
 
     if (personaError || !persona) {
       console.error('Error fetching persona:', personaError);
-      return new Response(
-        JSON.stringify({ error: 'Persona not found or missing SMS credentials' }),
-        { 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          status: 404 
-        }
-      );
+      throw new Error('Persona not found or missing SMS credentials');
     }
 
-    if (!persona.httpsms_api_key || !persona.httpsms_phone) {
-      return new Response(
-        JSON.stringify({ error: 'SMS credentials not configured' }),
-        { 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          status: 400 
-        }
-      );
+    // Fetch conversation history
+    const { data: conversation, error: convError } = await supabase
+      .from('conversations')
+      .select('id, context')
+      .eq('persona_id', personaId)
+      .eq('client_phone', to)
+      .single();
+
+    let conversationId = conversation?.id;
+    let context = conversation?.context || {};
+
+    if (!conversationId) {
+      // Create new conversation if none exists
+      const { data: newConv, error: createError } = await supabase
+        .from('conversations')
+        .insert({
+          persona_id: personaId,
+          client_phone: to,
+          context: {},
+          status: 'active'
+        })
+        .select()
+        .single();
+
+      if (createError) throw createError;
+      conversationId = newConv.id;
+      context = {};
     }
 
-    // First, check if a thread exists
-    const threadResponse = await fetch('https://api.httpsms.com/v1/message-threads', {
-      headers: {
-        'Accept': 'application/json',
-        'x-api-key': persona.httpsms_api_key,
-      },
-    });
+    // Fetch recent messages for context
+    const { data: recentMessages } = await supabase
+      .from('messages')
+      .select('content, is_from_client, created_at')
+      .eq('conversation_id', conversationId)
+      .order('created_at', { ascending: false })
+      .limit(5);
 
-    const threads = await threadResponse.json();
-    let existingThread = threads.data?.find((t: MessageThread) => t.contact === to);
+    // Build conversation context
+    const conversationHistory = recentMessages?.reverse().map(msg => ({
+      role: msg.is_from_client ? "user" : "assistant",
+      content: msg.content
+    })) || [];
 
-    // Prepare the payload with all possible options
-    const payload: any = {
-      from: persona.httpsms_phone,
-      to,
-      content,
-    };
+    // Apply persona settings to generate appropriate response
+    let responseContent = content;
+    if (persona.tone) {
+      responseContent = adjustTone(responseContent, persona.tone);
+    }
 
-    // Add optional parameters if they're provided
-    if (scheduled_send_time) payload.scheduled_send_time = scheduled_send_time;
-    if (sim) payload.sim = sim;
-    if (request_id) payload.request_id = request_id;
-    if (color && !existingThread) payload.color = color;
-    if (typeof is_archived !== 'undefined') payload.is_archived = is_archived;
+    if (persona.typical_phrases && persona.typical_phrases.length > 0) {
+      responseContent = incorporateTypicalPhrases(responseContent, persona.typical_phrases);
+    }
 
-    console.log('Sending SMS with payload:', payload);
+    if (persona.formality_level) {
+      responseContent = adjustFormality(responseContent, persona.formality_level);
+    }
 
-    // Send SMS using httpSMS API
+    // Send message using httpSMS API
     const response = await fetch('https://api.httpsms.com/v1/messages/send', {
       method: 'POST',
       headers: {
@@ -104,7 +107,11 @@ serve(async (req) => {
         'Content-Type': 'application/json',
         'x-api-key': persona.httpsms_api_key,
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        from: persona.httpsms_phone,
+        to,
+        content: responseContent
+      }),
     });
 
     const result = await response.json();
@@ -118,30 +125,29 @@ serve(async (req) => {
     const { error: messageError } = await supabase
       .from('messages')
       .insert({
-        content,
+        content: responseContent,
         is_from_client: false,
-        conversation_id: null, // You might want to pass this in the request if needed
+        conversation_id: conversationId,
       });
 
     if (messageError) {
       console.error('Error storing message:', messageError);
     }
 
-    // If this is a new thread, update thread properties
-    if (existingThread && (color || typeof is_archived !== 'undefined')) {
-      const updatePayload: any = {};
-      if (color) updatePayload.color = color;
-      if (typeof is_archived !== 'undefined') updatePayload.is_archived = is_archived;
+    // Update conversation context
+    const { error: updateError } = await supabase
+      .from('conversations')
+      .update({ 
+        context: {
+          ...context,
+          last_interaction: new Date().toISOString(),
+          message_count: (context.message_count || 0) + 1
+        }
+      })
+      .eq('id', conversationId);
 
-      await fetch(`https://api.httpsms.com/v1/message-threads/${existingThread.id}`, {
-        method: 'PUT',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'x-api-key': persona.httpsms_api_key,
-        },
-        body: JSON.stringify(updatePayload),
-      });
+    if (updateError) {
+      console.error('Error updating conversation context:', updateError);
     }
 
     return new Response(
@@ -149,23 +155,57 @@ serve(async (req) => {
         success: true,
         messageId: result.data.id,
         status: result.status,
-        details: result.data,
-        threadId: existingThread?.id
+        details: result.data
       }),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200 
-      }
+      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
 
   } catch (error) {
     console.error('Error sending SMS:', error);
     return new Response(
       JSON.stringify({ error: error.message }),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 500 
-      }
+      { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
     );
   }
 });
+
+// Helper functions for text processing
+function adjustTone(text: string, tone: string): string {
+  // Simple tone adjustment based on persona settings
+  switch (tone.toLowerCase()) {
+    case 'professional':
+      return text.replace(/hey/gi, 'hello').replace(/yeah/gi, 'yes');
+    case 'casual':
+      return text.replace(/hello/gi, 'hey').replace(/greetings/gi, 'hi');
+    case 'friendly':
+      return `${text} 😊`;
+    default:
+      return text;
+  }
+}
+
+function incorporateTypicalPhrases(text: string, phrases: string[]): string {
+  // Randomly select and incorporate a typical phrase if appropriate
+  if (Math.random() > 0.7 && phrases.length > 0) {
+    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+    return `${text} ${randomPhrase}`;
+  }
+  return text;
+}
+
+function adjustFormality(text: string, formalityLevel: string): string {
+  switch (formalityLevel.toLowerCase()) {
+    case 'formal':
+      return text
+        .replace(/don't/gi, 'do not')
+        .replace(/won't/gi, 'will not')
+        .replace(/can't/gi, 'cannot');
+    case 'informal':
+      return text
+        .replace(/do not/gi, "don't")
+        .replace(/will not/gi, "won't")
+        .replace(/cannot/gi, "can't");
+    default:
+      return text;
+  }
+}
