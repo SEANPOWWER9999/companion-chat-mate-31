@@ -10,6 +10,9 @@ interface SendSMSBody {
   to: string;
   content: string;
   personaId: string;
+  scheduled_send_time?: string; // Optional: Schedule message for later
+  sim?: "SIM1" | "SIM2";       // Optional: Specify which SIM to use
+  request_id?: string;         // Optional: Custom request ID for tracking
 }
 
 serve(async (req) => {
@@ -23,7 +26,7 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    const { to, content, personaId } = await req.json() as SendSMSBody;
+    const { to, content, personaId, scheduled_send_time, sim, request_id } = await req.json() as SendSMSBody;
 
     // Get the persona's API key and phone number
     const { data: persona, error: personaError } = await supabase
@@ -53,6 +56,20 @@ serve(async (req) => {
       );
     }
 
+    // Prepare the payload with all possible options
+    const payload: any = {
+      from: persona.httpsms_phone,
+      to,
+      content,
+    };
+
+    // Add optional parameters if they're provided
+    if (scheduled_send_time) payload.scheduled_send_time = scheduled_send_time;
+    if (sim) payload.sim = sim;
+    if (request_id) payload.request_id = request_id;
+
+    console.log('Sending SMS with payload:', payload);
+
     // Send SMS using httpSMS API
     const response = await fetch('https://api.httpsms.com/v1/messages/send', {
       method: 'POST',
@@ -61,11 +78,7 @@ serve(async (req) => {
         'Content-Type': 'application/json',
         'x-api-key': persona.httpsms_api_key,
       },
-      body: JSON.stringify({
-        from: persona.httpsms_phone,
-        to,
-        content,
-      }),
+      body: JSON.stringify(payload),
     });
 
     const result = await response.json();
