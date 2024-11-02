@@ -9,6 +9,36 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      btc_deposits: {
+        Row: {
+          amount: number
+          btc_address: string
+          created_at: string
+          id: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          btc_address: string
+          created_at?: string
+          id?: string
+          status: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          btc_address?: string
+          created_at?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           client_phone: string
@@ -84,6 +114,7 @@ export type Database = {
           age: number | null
           avoid_words: string[] | null
           backstory: string | null
+          blocked_numbers: string[] | null
           conversation_style: string | null
           created_at: string
           formality_level: string | null
@@ -91,6 +122,7 @@ export type Database = {
           httpsms_phone: string | null
           id: string
           interests: string[] | null
+          message_count: number | null
           name: string
           preferred_response_length: string | null
           preferred_words: string[] | null
@@ -103,6 +135,7 @@ export type Database = {
           age?: number | null
           avoid_words?: string[] | null
           backstory?: string | null
+          blocked_numbers?: string[] | null
           conversation_style?: string | null
           created_at?: string
           formality_level?: string | null
@@ -110,6 +143,7 @@ export type Database = {
           httpsms_phone?: string | null
           id?: string
           interests?: string[] | null
+          message_count?: number | null
           name: string
           preferred_response_length?: string | null
           preferred_words?: string[] | null
@@ -122,6 +156,7 @@ export type Database = {
           age?: number | null
           avoid_words?: string[] | null
           backstory?: string | null
+          blocked_numbers?: string[] | null
           conversation_style?: string | null
           created_at?: string
           formality_level?: string | null
@@ -129,11 +164,45 @@ export type Database = {
           httpsms_phone?: string | null
           id?: string
           interests?: string[] | null
+          message_count?: number | null
           name?: string
           preferred_response_length?: string | null
           preferred_words?: string[] | null
           tone?: string | null
           typical_phrases?: string[] | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          created_at: string
+          current_period_end: string | null
+          current_period_start: string | null
+          id: string
+          plan_type: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_period_end?: string | null
+          current_period_start?: string | null
+          id?: string
+          plan_type: string
+          status: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current_period_end?: string | null
+          current_period_start?: string | null
+          id?: string
+          plan_type?: string
+          status?: string
           updated_at?: string
           user_id?: string
         }
