@@ -77,6 +77,72 @@ export type Database = {
           },
         ]
       }
+      conversion_fees: {
+        Row: {
+          created_at: string
+          fee_percentage: number
+          from_currency: string
+          id: string
+          to_currency: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          fee_percentage: number
+          from_currency: string
+          id?: string
+          to_currency: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          fee_percentage?: number
+          from_currency?: string
+          id?: string
+          to_currency?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      crypto_conversions: {
+        Row: {
+          created_at: string
+          fee_amount: number
+          from_amount: number
+          from_currency: string
+          id: string
+          status: string
+          to_amount: number
+          to_currency: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          fee_amount: number
+          from_amount: number
+          from_currency: string
+          id?: string
+          status: string
+          to_amount: number
+          to_currency: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          fee_amount?: number
+          from_amount?: number
+          from_currency?: string
+          id?: string
+          status?: string
+          to_amount?: number
+          to_currency?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           content: string
