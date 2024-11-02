@@ -1,18 +1,20 @@
+import { Link } from "react-router-dom";
+
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navigation Bar */}
       <nav className="bg-indigo-600 p-4 fixed w-full top-0 z-10">
         <div className="container mx-auto flex justify-between items-center">
-          <a href="#landing-page" className="text-white text-lg font-bold">User Private Chat</a>
+          <Link to="/" className="text-white text-lg font-bold">User Private Chat</Link>
           <div className="space-x-4">
-            <a href="#landing-page" className="text-white">Home</a>
-            <a href="#login-page" className="text-white">Login</a>
-            <a href="#signup-page" className="text-white">Sign Up</a>
-            <a href="#subscription-page" className="text-white">Subscription</a>
-            <a href="#profile-page" className="text-white">Profile</a>
-            <a href="#analytics-page" className="text-white">Analytics</a>
-            <a href="#preferences-page" className="text-white">Preferences</a>
+            <Link to="/" className="text-white">Home</Link>
+            <Link to="/login" className="text-white">Login</Link>
+            <Link to="/signup" className="text-white">Sign Up</Link>
+            <Link to="/subscription" className="text-white">Subscription</Link>
+            <Link to="/profile" className="text-white">Profile</Link>
+            <Link to="/analytics" className="text-white">Analytics</Link>
+            <Link to="/preferences" className="text-white">Preferences</Link>
           </div>
         </div>
       </nav>
@@ -24,9 +26,9 @@ const Index = () => {
             <h1 className="text-4xl font-bold mb-4">Welcome to User Private Chat</h1>
             <p className="mb-4">Our chatbot service is designed to help users manage their profiles, communicate with clients, and handle bookings efficiently. Sign up today to streamline your business and enhance your client interactions.</p>
             <div className="flex justify-center space-x-4">
-              <a href="#login-page" className="bg-white text-indigo-600 px-4 py-2 rounded">Login</a>
-              <a href="#signup-page" className="bg-white text-indigo-600 px-4 py-2 rounded">Sign Up</a>
-              <a href="#subscription-page" className="bg-white text-indigo-600 px-4 py-2 rounded">Subscription</a>
+              <Link to="/login" className="bg-white text-indigo-600 px-4 py-2 rounded">Login</Link>
+              <Link to="/signup" className="bg-white text-indigo-600 px-4 py-2 rounded">Sign Up</Link>
+              <Link to="/subscription" className="bg-white text-indigo-600 px-4 py-2 rounded">Subscription</Link>
             </div>
           </div>
 
