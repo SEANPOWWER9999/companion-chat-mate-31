@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useState, useEffect } from "react";
@@ -84,6 +86,35 @@ const Profile = () => {
           <CardTitle>Profile</CardTitle>
         </CardHeader>
         <CardContent>
+          <Alert className="mb-6">
+            <AlertDescription>
+              To use SMS features, you'll need a httpSMS account. Follow these steps:
+              <ol className="list-decimal ml-4 mt-2 space-y-1">
+                <li>
+                  <a 
+                    href="https://httpsms.com/signup" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-700 inline-flex items-center"
+                  >
+                    Sign up for httpSMS <ExternalLink className="h-4 w-4 ml-1" />
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://httpsms.com/settings" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-700 inline-flex items-center"
+                  >
+                    Get your API key from settings <ExternalLink className="h-4 w-4 ml-1" />
+                  </a>
+                </li>
+                <li>Enter your API key and phone number below</li>
+              </ol>
+            </AlertDescription>
+          </Alert>
+
           <form onSubmit={handleUpdateProfile} className="space-y-4">
             <div className="space-y-2">
               <label>Name</label>
@@ -100,8 +131,9 @@ const Profile = () => {
                 onChange={(e) => setApiKey(e.target.value)}
                 placeholder="Your httpSMS API Key"
                 type="password"
+                pattern="^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$"
+                title="Please enter a valid API key"
               />
-              <p className="text-sm text-gray-500">Get your API key from <a href="https://httpsms.com/settings" target="_blank" rel="noopener noreferrer" className="text-blue-500">httpSMS settings</a></p>
             </div>
             <div className="space-y-2">
               <label>Phone Number</label>
@@ -109,6 +141,8 @@ const Profile = () => {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+1234567890"
+                pattern="^\+[1-9]\d{1,14}$"
+                title="Please enter a valid phone number in international format (e.g., +1234567890)"
               />
               <p className="text-sm text-gray-500">Enter the phone number associated with your httpSMS account</p>
             </div>
