@@ -1,0 +1,15 @@
+.bordered-title {
+  border-bottom: 2px solid #ff69b4;
+  padding-bottom: 4px;
+  margin-bottom: 1rem;
+}
+
+.flashing {
+  animation: flash 1s infinite;
+}
+
+@keyframes flash {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}

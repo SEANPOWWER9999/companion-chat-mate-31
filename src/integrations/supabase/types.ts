@@ -271,6 +271,54 @@ export type Database = {
         }
         Relationships: []
       }
+      profile_settings: {
+        Row: {
+          chatbot_character: string | null
+          chatbot_knowledge: string | null
+          chatbot_style: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_description_locked: boolean | null
+          is_rates_locked: boolean | null
+          is_services_locked: boolean | null
+          rates: Json | null
+          services: Database["public"]["Enums"]["service_type"][] | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          chatbot_character?: string | null
+          chatbot_knowledge?: string | null
+          chatbot_style?: string | null
+          created_at?: string
+          description?: string | null
+          id: string
+          is_description_locked?: boolean | null
+          is_rates_locked?: boolean | null
+          is_services_locked?: boolean | null
+          rates?: Json | null
+          services?: Database["public"]["Enums"]["service_type"][] | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          chatbot_character?: string | null
+          chatbot_knowledge?: string | null
+          chatbot_style?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_description_locked?: boolean | null
+          is_rates_locked?: boolean | null
+          is_services_locked?: boolean | null
+          rates?: Json | null
+          services?: Database["public"]["Enums"]["service_type"][] | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       subscriptions: {
         Row: {
           created_at: string
@@ -313,6 +361,32 @@ export type Database = {
     }
     Enums: {
       conversation_status: "active" | "archived" | "blocked"
+      service_type:
+        | "Travel"
+        | "Dinner"
+        | "Intimacy"
+        | "Companionship"
+        | "Fetish"
+        | "BDSM"
+        | "GFE"
+        | "Role-play"
+        | "Massage"
+        | "Conversation"
+        | "Dancing"
+        | "Couples"
+        | "Overnight"
+        | "Fitness"
+        | "Virtual"
+        | "Party"
+        | "Weekend"
+        | "Shopping"
+        | "Concerts"
+        | "Outdoors"
+        | "Wine"
+        | "Culture"
+        | "Education"
+        | "Photography"
+        | "Cooking"
     }
     CompositeTypes: {
       [_ in never]: never

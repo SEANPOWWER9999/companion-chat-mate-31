@@ -1,18 +1,35 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { ExternalLink } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { StatusToggle } from "@/components/profile/StatusToggle";
+import { RatesSection } from "@/components/profile/RatesSection";
+import { ServicesSection } from "@/components/profile/ServicesSection";
+import { ChatbotConfig } from "@/components/profile/ChatbotConfig";
 
 const Profile = () => {
-  const [name, setName] = useState("");
-  const [apiKey, setApiKey] = useState("");
-  const [phone, setPhone] = useState("");
-  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState({
+    status: 'offline',
+    description: '',
+    rates: {
+      "30min": { incall: null, outcall: null },
+      "1hour": { incall: null, outcall: null },
+      overnight: { incall: null, outcall: null }
+    },
+    services: [],
+    is_description_locked: false,
+    is_rates_locked: false,
+    is_services_locked: false,
+    chatbot_character: '',
+    chatbot_knowledge: '',
+    chatbot_style: ''
+  });
 
   useEffect(() => {
     loadProfile();
@@ -21,22 +38,19 @@ const Profile = () => {
   const loadProfile = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { data: persona } = await supabase
-          .from("personas")
-          .select("*")
-          .eq("user_id", user.id)
-          .single();
-        
-        if (persona) {
-          setName(persona.name);
-          setApiKey(persona.httpsms_api_key || '');
-          setPhone(persona.httpsms_phone || '');
-        }
-      }
+      if (!user) throw new Error("Not authenticated");
+
+      const { data, error } = await supabase
+        .from('profile_settings')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
+      if (error) throw error;
+      if (data) setProfile(data);
     } catch (error: any) {
       toast({
-        title: "Error",
+        title: "Error loading profile",
         description: error.message,
         variant: "destructive",
       });
@@ -45,19 +59,16 @@ const Profile = () => {
     }
   };
 
-  const handleUpdateProfile = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const saveProfile = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
       const { error } = await supabase
-        .from("personas")
+        .from('profile_settings')
         .upsert({
-          user_id: user.id,
-          name,
-          httpsms_api_key: apiKey,
-          httpsms_phone: phone,
+          id: user.id,
+          ...profile
         });
 
       if (error) throw error;
@@ -68,7 +79,7 @@ const Profile = () => {
       });
     } catch (error: any) {
       toast({
-        title: "Error",
+        title: "Error saving profile",
         description: error.message,
         variant: "destructive",
       });
@@ -80,74 +91,92 @@ const Profile = () => {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <Card>
-        <CardHeader>
-          <CardTitle>Profile</CardTitle>
+    <div className="container mx-auto p-4 space-y-8">
+      <Card className="bg-white/80 backdrop-blur-lg">
+        <CardHeader className="bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-t-lg">
+          <CardTitle className="text-center relative">
+            <img
+              alt="Hot Bot Logo"
+              className="absolute left-2 top-2 w-8 h-8"
+              src="/hotbot-logo.png"
+            />
+            The Hot Bot
+            <p className="text-xs absolute bottom-1 right-2">Developed by K&P</p>
+          </CardTitle>
         </CardHeader>
-        <CardContent>
-          <Alert className="mb-6">
-            <AlertDescription>
-              To use SMS features, you'll need a httpSMS account. Follow these steps:
-              <ol className="list-decimal ml-4 mt-2 space-y-1">
-                <li>
-                  <a 
-                    href="https://httpsms.com/signup" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-blue-500 hover:text-blue-700 inline-flex items-center"
-                  >
-                    Sign up for httpSMS <ExternalLink className="h-4 w-4 ml-1" />
-                  </a>
-                </li>
-                <li>
-                  <a 
-                    href="https://httpsms.com/settings" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-blue-500 hover:text-blue-700 inline-flex items-center"
-                  >
-                    Get your API key from settings <ExternalLink className="h-4 w-4 ml-1" />
-                  </a>
-                </li>
-                <li>Enter your API key and phone number below</li>
-              </ol>
-            </AlertDescription>
-          </Alert>
+        <CardContent className="p-6 space-y-8">
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold bordered-title">Current Status</h2>
+            <StatusToggle
+              status={profile.status}
+              onStatusChange={(status) => setProfile({ ...profile, status })}
+            />
+          </div>
 
-          <form onSubmit={handleUpdateProfile} className="space-y-4">
-            <div className="space-y-2">
-              <label>Name</label>
-              <Input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Your name"
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold bordered-title">Description</h2>
+            <Textarea
+              value={profile.description}
+              onChange={(e) => setProfile({ ...profile, description: e.target.value })}
+              disabled={profile.is_description_locked}
+              className="bg-pink-50"
+              rows={4}
+            />
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="lock-description"
+                checked={profile.is_description_locked}
+                onCheckedChange={(checked) => 
+                  setProfile({ ...profile, is_description_locked: checked as boolean })
+                }
               />
+              <Label htmlFor="lock-description">Lock Description</Label>
             </div>
-            <div className="space-y-2">
-              <label>httpSMS API Key</label>
-              <Input
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-                placeholder="Your httpSMS API Key"
-                type="password"
-                pattern="^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$"
-                title="Please enter a valid API key"
-              />
-            </div>
-            <div className="space-y-2">
-              <label>Phone Number</label>
-              <Input
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+1234567890"
-                pattern="^\+[1-9]\d{1,14}$"
-                title="Please enter a valid phone number in international format (e.g., +1234567890)"
-              />
-              <p className="text-sm text-gray-500">Enter the phone number associated with your httpSMS account</p>
-            </div>
-            <Button type="submit">Update Profile</Button>
-          </form>
+          </div>
+
+          <RatesSection
+            rates={profile.rates}
+            isLocked={profile.is_rates_locked}
+            onRatesChange={(rates) => setProfile({ ...profile, rates })}
+            onLockChange={(locked) => setProfile({ ...profile, is_rates_locked: locked })}
+          />
+
+          <ServicesSection
+            selectedServices={profile.services}
+            isLocked={profile.is_services_locked}
+            onServicesChange={(services) => setProfile({ ...profile, services })}
+            onLockChange={(locked) => setProfile({ ...profile, is_services_locked: locked })}
+          />
+
+          <ChatbotConfig
+            character={profile.chatbot_character}
+            knowledge={profile.chatbot_knowledge}
+            style={profile.chatbot_style}
+            onConfigChange={({ character, knowledge, style }) => 
+              setProfile({ 
+                ...profile, 
+                chatbot_character: character,
+                chatbot_knowledge: knowledge,
+                chatbot_style: style
+              })
+            }
+          />
+
+          <div className="flex justify-between pt-4">
+            <Button
+              variant="outline"
+              onClick={() => window.history.back()}
+              className="bg-pink-200 text-gray-900"
+            >
+              Back
+            </Button>
+            <Button
+              onClick={saveProfile}
+              className="bg-pink-500 text-white hover:bg-pink-600"
+            >
+              Save Profile
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>
