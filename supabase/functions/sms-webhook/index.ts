@@ -35,7 +35,10 @@ serve(async (req) => {
       console.error('Error finding persona:', personaError);
       return new Response(
         JSON.stringify({ error: 'Persona not found' }),
-        { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        { 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 404
+        }
       );
     }
 
@@ -86,7 +89,10 @@ serve(async (req) => {
     console.error('Error processing webhook:', error);
     return new Response(
       JSON.stringify({ error: 'Internal server error' }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 500
+      }
     );
   }
 });
