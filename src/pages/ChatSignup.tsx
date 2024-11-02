@@ -15,11 +15,12 @@ const ChatSignup = () => {
   const [messages, setMessages] = useState<Message[]>([
     { content: "Hey there! 🔥 I'm HotBot, your friendly neighborhood chat assistant! I'll be helping you set up your amazing new account today. First things first - what's your name? 😊", isBot: true }
   ]);
-  const [currentStep, setCurrentStep] = useState<'name' | 'email' | 'password' | 'complete'>('name');
+  const [currentStep, setCurrentStep] = useState<'name' | 'email' | 'password' | 'confirm' | 'complete'>('name');
   const [userInput, setUserInput] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -41,11 +42,30 @@ const ChatSignup = () => {
     }
   };
 
+  const handleConfirmation = async (confirmed: boolean) => {
+    if (confirmed) {
+      setMessages(prev => [...prev, 
+        { content: "Perfect! Your account is all set up. Redirecting you to login... 🚀", isBot: true }
+      ]);
+      setTimeout(() => {
+        navigate('/login');
+      }, 3000);
+    } else {
+      setMessages(prev => [...prev, 
+        { content: "No problem! Let's start over. What's your name? 😊", isBot: true }
+      ]);
+      setCurrentStep('name');
+      setName("");
+      setEmail("");
+      setPassword("");
+    }
+    setShowConfirmation(false);
+  };
+
   const handleUserInput = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userInput.trim()) return;
 
-    // Add user message to chat
     setMessages(prev => [...prev, { content: userInput, isBot: false }]);
 
     if (currentStep === 'name') {
@@ -80,7 +100,12 @@ const ChatSignup = () => {
         return;
       }
       setPassword(userInput);
-      setCurrentStep('complete');
+      setCurrentStep('confirm');
+      setMessages(prev => [...prev, { 
+        content: `Great! Let me summarize your information:\n\nName: ${name}\nEmail: ${email}\n\nDoes this look correct? If not, we can start over! 🤔`, 
+        isBot: true 
+      }]);
+      setShowConfirmation(true);
       
       try {
         const { error } = await supabase.auth.signUp({
@@ -90,26 +115,13 @@ const ChatSignup = () => {
 
         if (error) throw error;
 
-        setMessages(prev => [...prev, { 
-          content: `Woohoo! ${name}, we did it! 🎉 I've created your super-hot account! Check your email to verify your address, and then we can get this party started! 🚀`, 
-          isBot: true 
-        }]);
-
-        toast({
-          title: "Success! 🎯",
-          description: "Please check your email to verify your account.",
-        });
-
-        setTimeout(() => {
-          navigate('/login');
-        }, 5000);
-
       } catch (error: any) {
         setMessages(prev => [...prev, { 
           content: `Oh snap! ${name}, we hit a snag: ${error.message}. Let's start fresh! 🔄`, 
           isBot: true 
         }]);
         setCurrentStep('email');
+        setShowConfirmation(false);
       }
     }
     setUserInput("");
@@ -145,24 +157,42 @@ const ChatSignup = () => {
             </div>
           ))}
         </div>
-        <form onSubmit={handleUserInput} className="p-4 border-t">
-          <div className="flex gap-2">
-            <Input
-              type={currentStep === 'password' ? 'password' : 'text'}
-              placeholder={
-                currentStep === 'name' ? "Enter your name..." :
-                currentStep === 'email' ? "Enter your email..." :
-                "Enter your password..."
-              }
-              value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
+        {showConfirmation ? (
+          <div className="p-4 border-t flex gap-2">
+            <Button 
+              onClick={() => handleConfirmation(true)}
+              className="flex-1 bg-green-500 hover:bg-green-600"
+            >
+              ✅ Looks Good!
+            </Button>
+            <Button 
+              onClick={() => handleConfirmation(false)}
+              variant="destructive" 
               className="flex-1"
-            />
-            <Button type="submit" className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
-              Send
+            >
+              🔄 Start Over
             </Button>
           </div>
-        </form>
+        ) : (
+          <form onSubmit={handleUserInput} className="p-4 border-t">
+            <div className="flex gap-2">
+              <Input
+                type={currentStep === 'password' ? 'password' : 'text'}
+                placeholder={
+                  currentStep === 'name' ? "Enter your name..." :
+                  currentStep === 'email' ? "Enter your email..." :
+                  "Enter your password..."
+                }
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                className="flex-1"
+              />
+              <Button type="submit" className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
+                Send
+              </Button>
+            </div>
+          </form>
+        )}
       </Card>
     </div>
   );
