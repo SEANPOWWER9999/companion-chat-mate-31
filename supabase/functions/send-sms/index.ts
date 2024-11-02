@@ -10,9 +10,22 @@ interface SendSMSBody {
   to: string;
   content: string;
   personaId: string;
-  scheduled_send_time?: string; // Optional: Schedule message for later
-  sim?: "SIM1" | "SIM2";       // Optional: Specify which SIM to use
-  request_id?: string;         // Optional: Custom request ID for tracking
+  scheduled_send_time?: string;
+  sim?: "SIM1" | "SIM2";
+  request_id?: string;
+  color?: "yellow" | "green" | "brown" | "pink" | "purple" | "cyan";
+  is_archived?: boolean;
+}
+
+interface MessageThread {
+  id: string;
+  owner: string;
+  contact: string;
+  is_archived: boolean;
+  color: string;
+  status: string;
+  last_message_content: string;
+  last_message_id: string;
 }
 
 serve(async (req) => {
@@ -26,7 +39,7 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    const { to, content, personaId, scheduled_send_time, sim, request_id } = await req.json() as SendSMSBody;
+    const { to, content, personaId, scheduled_send_time, sim, request_id, color, is_archived } = await req.json() as SendSMSBody;
 
     // Get the persona's API key and phone number
     const { data: persona, error: personaError } = await supabase
@@ -56,6 +69,17 @@ serve(async (req) => {
       );
     }
 
+    // First, check if a thread exists
+    const threadResponse = await fetch('https://api.httpsms.com/v1/message-threads', {
+      headers: {
+        'Accept': 'application/json',
+        'x-api-key': persona.httpsms_api_key,
+      },
+    });
+
+    const threads = await threadResponse.json();
+    let existingThread = threads.data?.find((t: MessageThread) => t.contact === to);
+
     // Prepare the payload with all possible options
     const payload: any = {
       from: persona.httpsms_phone,
@@ -67,6 +91,8 @@ serve(async (req) => {
     if (scheduled_send_time) payload.scheduled_send_time = scheduled_send_time;
     if (sim) payload.sim = sim;
     if (request_id) payload.request_id = request_id;
+    if (color && !existingThread) payload.color = color;
+    if (typeof is_archived !== 'undefined') payload.is_archived = is_archived;
 
     console.log('Sending SMS with payload:', payload);
 
@@ -101,12 +127,30 @@ serve(async (req) => {
       console.error('Error storing message:', messageError);
     }
 
+    // If this is a new thread, update thread properties
+    if (existingThread && (color || typeof is_archived !== 'undefined')) {
+      const updatePayload: any = {};
+      if (color) updatePayload.color = color;
+      if (typeof is_archived !== 'undefined') updatePayload.is_archived = is_archived;
+
+      await fetch(`https://api.httpsms.com/v1/message-threads/${existingThread.id}`, {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'x-api-key': persona.httpsms_api_key,
+        },
+        body: JSON.stringify(updatePayload),
+      });
+    }
+
     return new Response(
       JSON.stringify({
         success: true,
         messageId: result.data.id,
         status: result.status,
-        details: result.data
+        details: result.data,
+        threadId: existingThread?.id
       }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
