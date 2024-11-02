@@ -6,10 +6,6 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-// Initialize BTCPay connection (we'll use testnet for development)
-const BTCPAY_URL = Deno.env.get('BTCPAY_URL')
-const BTCPAY_API_KEY = Deno.env.get('BTCPAY_API_KEY')
-
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -24,20 +20,8 @@ serve(async (req) => {
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
     const supabase = createClient(supabaseUrl!, supabaseKey!)
 
-    // Generate new BTC address using BTCPay Server API
-    const response = await fetch(`${BTCPAY_URL}/api/v1/stores/generate-address`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Token ${BTCPAY_API_KEY}`,
-        'Content-Type': 'application/json',
-      }
-    })
-
-    if (!response.ok) {
-      throw new Error('Failed to generate BTC address')
-    }
-
-    const { address } = await response.json()
+    // Generate a placeholder Bitcoin address (for development)
+    const placeholderAddress = `bc1${Math.random().toString(36).substring(2, 15)}` // Generates a random string
 
     // Store the deposit record
     const { data, error } = await supabase
@@ -45,7 +29,7 @@ serve(async (req) => {
       .insert({
         user_id,
         amount,
-        btc_address: address,
+        btc_address: placeholderAddress,
         status: 'pending'
       })
       .select()
@@ -55,7 +39,7 @@ serve(async (req) => {
 
     return new Response(
       JSON.stringify({ 
-        btc_address: address,
+        btc_address: placeholderAddress,
         deposit_id: data.id
       }),
       { 
