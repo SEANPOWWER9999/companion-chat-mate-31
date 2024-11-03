@@ -11,10 +11,27 @@ import { RatesSection } from "@/components/profile/RatesSection";
 import { ServicesSection } from "@/components/profile/ServicesSection";
 import { ChatbotConfig } from "@/components/profile/ChatbotConfig";
 
+interface ProfileState {
+  status: string;
+  description: string;
+  rates: {
+    "30min": { incall: string | null; outcall: string | null };
+    "1hour": { incall: string | null; outcall: string | null };
+    overnight: { incall: string | null; outcall: string | null };
+  };
+  services: string[];
+  is_description_locked: boolean;
+  is_rates_locked: boolean;
+  is_services_locked: boolean;
+  chatbot_character: string;
+  chatbot_knowledge: string;
+  chatbot_style: string;
+}
+
 const Profile = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
-  const [profile, setProfile] = useState({
+  const [profile, setProfile] = useState<ProfileState>({
     status: 'offline',
     description: '',
     rates: {
@@ -47,7 +64,24 @@ const Profile = () => {
         .single();
 
       if (error) throw error;
-      if (data) setProfile(data);
+      if (data) {
+        setProfile({
+          status: data.status || 'offline',
+          description: data.description || '',
+          rates: data.rates || {
+            "30min": { incall: null, outcall: null },
+            "1hour": { incall: null, outcall: null },
+            overnight: { incall: null, outcall: null }
+          },
+          services: data.services || [],
+          is_description_locked: data.is_description_locked || false,
+          is_rates_locked: data.is_rates_locked || false,
+          is_services_locked: data.is_services_locked || false,
+          chatbot_character: data.chatbot_character || '',
+          chatbot_knowledge: data.chatbot_knowledge || '',
+          chatbot_style: data.chatbot_style || ''
+        });
+      }
     } catch (error: any) {
       toast({
         title: "Error loading profile",
