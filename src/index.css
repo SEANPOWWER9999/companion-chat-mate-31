@@ -17,7 +17,7 @@
   }
 
   body {
-    @apply bg-gray-100 font-roboto;
+    @apply bg-gradient-hotbot font-roboto text-white min-h-screen;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -27,35 +27,54 @@
 
 @layer components {
   .text-gradient {
-    @apply bg-gradient-to-r from-hotbot-primary to-hotbot-secondary bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-hotbot-pink to-hotbot-purple bg-clip-text text-transparent;
   }
   
   .btn-gradient {
-    @apply bg-gradient-to-r from-pink-500 to-purple-600 text-white py-2 px-4 rounded-lg 
+    @apply bg-gradient-to-r from-hotbot-pink to-hotbot-purple text-white py-2 px-4 rounded-lg 
            hover:shadow-lg transition duration-300;
   }
   
   .nav-link {
-    @apply text-gray-600 hover:text-pink-500 transition-colors duration-300;
+    @apply text-white/80 hover:text-hotbot-gold transition-colors duration-300;
   }
 
   .card {
-    @apply bg-white p-6 rounded-lg shadow-lg;
+    @apply bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-lg border border-white/20;
   }
 
   .input-primary {
-    @apply bg-white border border-gray-300 rounded-lg px-4 py-2
-           focus:ring-2 focus:ring-pink-500 focus:border-transparent
-           placeholder:text-gray-400;
+    @apply bg-white/10 border border-white/20 rounded-lg px-4 py-2
+           focus:ring-2 focus:ring-hotbot-gold focus:border-transparent
+           placeholder:text-white/40 text-white;
   }
 
   .chat-bubble-user {
-    @apply bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg rounded-tr-none
+    @apply bg-gradient-to-r from-hotbot-pink to-hotbot-purple text-white rounded-lg rounded-tr-none
            p-4 shadow-md max-w-[80%] ml-auto;
   }
 
   .chat-bubble-bot {
-    @apply bg-gradient-to-r from-pink-400 to-purple-500 text-white rounded-lg rounded-tl-none
+    @apply bg-gradient-to-r from-hotbot-coral to-hotbot-red text-white rounded-lg rounded-tl-none
            p-4 shadow-md max-w-[80%];
   }
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+  50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
 }

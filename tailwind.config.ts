@@ -8,18 +8,20 @@ export default {
       colors: {
         border: "hsl(var(--border))",
         hotbot: {
-          primary: "#ff7eb3",    // Pink
-          secondary: "#ff758c",  // Light Pink
-          accent: "#FFD700",     // Gold
-          dark: "#333333",
-          light: "#FFFFFF"
+          pink: "#FF5B93",     // Bold pink
+          purple: "#A45DBF",   // Royal purple
+          red: "#D50032",      // Deep red
+          gold: "#FFD700",     // Bright gold
+          coral: "#FF6F61",    // Bright coral
+          teal: "#1DB2A6",     // Bright teal
+          yellow: "#FFF700",   // Lemon yellow
         }
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(to right, #ff7eb3, #ff758c)',
+        'gradient-hotbot': 'linear-gradient(to right, #FF5B93, #A45DBF)',
       },
     },
   },
