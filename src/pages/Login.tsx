@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -34,61 +34,45 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-      });
-      if (error) throw error;
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    }
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Login</CardTitle>
-          <CardDescription>Enter your credentials to access your account</CardDescription>
-        </CardHeader>
-        <CardContent>
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-800 to-red-900">
+      <div className="container mx-auto p-4 pt-20">
+        <div className="max-w-md mx-auto bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
+          <h2 className="text-2xl font-bold mb-4 text-white">Login</h2>
           <form onSubmit={handleLogin} className="space-y-4">
-            <div className="space-y-2">
+            <div>
               <Input
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="bg-white/20 border-white/20 text-white placeholder:text-white/70"
               />
             </div>
-            <div className="space-y-2">
+            <div>
               <Input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="bg-white/20 border-white/20 text-white placeholder:text-white/70"
               />
             </div>
-            <Button type="submit" className="w-full">Login</Button>
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
-              </div>
-            </div>
-            <Button type="button" variant="outline" className="w-full" onClick={handleGoogleLogin}>
-              Google
+            <Button 
+              type="submit"
+              className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-full"
+            >
+              Login
             </Button>
+            <div className="text-center text-white/70">
+              Don't have an account?{" "}
+              <Link to="/signup" className="text-pink-400 hover:text-pink-300">
+                Sign up
+              </Link>
+            </div>
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };
