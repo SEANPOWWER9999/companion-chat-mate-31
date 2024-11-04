@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Clock, Zap, Crown, Sparkles, Heart, Star } from "lucide-react";
 
 export const WhyChooseUs = () => (
-  <section className="py-20 px-4 bg-gradient-to-br from-hotbot-pink via-hotbot-purple to-hotbot-red">
+  <section className="py-20 px-4 bg-gradient-to-br from-hotbot-pink via-hotbot-purple to-hotbot-coral">
     <div className="container mx-auto text-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -16,17 +16,17 @@ export const WhyChooseUs = () => (
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <Heart className="w-10 h-10 text-hotbot-gold" />
+            <Heart className="w-10 h-10 text-hotbot-yellow" />
           </motion.span>
         </h2>
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-xl text-pink-100 mb-8"
+          className="text-xl text-white/90 mb-8"
         >
           Babe, The HOTBOT is here to revolutionize your hustle! 🌈 It's like having a fierce girlfriend by your side, 
-          cutting through the BS and keeping things fun! 🎉 Say goodbye to boring convos and hello to more free time!
+          cutting through the BS and keeping things fun! 🎉 Say goodbye to boring convos and hello to more free time! 💁‍♀️
         </motion.p>
       </motion.div>
 
@@ -65,15 +65,15 @@ export const WhyChooseUs = () => (
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.5 }}
-              className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-hotbot-pink to-hotbot-purple rounded-full 
+              className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-hotbot-pink to-hotbot-coral rounded-full 
                        flex items-center justify-center text-white group-hover:shadow-lg"
             >
               <feature.icon className="w-8 h-8" />
             </motion.div>
-            <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-hotbot-gold transition-colors">
+            <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-hotbot-yellow transition-colors">
               {feature.title}
             </h3>
-            <p className="text-pink-100 leading-relaxed">
+            <p className="text-white/90 leading-relaxed">
               {feature.description}
             </p>
           </motion.div>

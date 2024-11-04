@@ -1,46 +1,41 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Sparkles, Star, Heart } from "lucide-react";
+import { Sparkles, Star, Heart, Clock, MessageCircle } from "lucide-react";
 
 export const HeroSection = () => (
-  <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-r from-pink-400 via-purple-500 to-purple-600 text-white px-4 pt-20">
+  <main className="min-h-screen bg-gradient-hotbot text-white px-4 pt-20 pb-12">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="container mx-auto text-center max-w-4xl relative z-10"
+      className="container mx-auto text-center max-w-4xl"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
-        className="mb-12"
+        transition={{ duration: 0.5 }}
+        className="mb-12 space-y-6"
       >
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 flex items-center justify-center gap-4">
+        <h1 className="text-5xl md:text-7xl font-bold flex items-center justify-center gap-4">
           Time to Shine, Gorgeous!{" "}
           <motion.span
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <Sparkles className="w-12 h-12 text-pink-200" />
+            <Sparkles className="w-12 h-12 text-hotbot-yellow" />
           </motion.span>
         </h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="text-xl md:text-2xl text-pink-100 max-w-3xl mx-auto"
-        >
-          Experience secure and efficient communication with our advanced chatbot service.
-          Perfect for managing profiles, client communications, and streamlined bookings!{" "}
-          <motion.span
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="inline-block"
-          >
-            <Heart className="inline-block w-6 h-6 ml-2 text-pink-200" />
-          </motion.span>
-        </motion.p>
+        
+        <p className="text-xl md:text-2xl text-white/90">
+          You just posted your ad, and now your phone's blowing up—ugh, here we go again! 😩
+          But don't sweat it; that's where <span className="font-bold text-hotbot-yellow">The HOTBOT</span> steps in! 💖
+        </p>
+        
+        <p className="text-lg md:text-xl text-white/85">
+          The HOTBOT cuts through the nonsense, filtering out the time-wasters so you only deal with 
+          cash-ready clients who matter. 💸 You set your <span className="text-hotbot-yellow">RATES</span> 💰 
+          and <span className="text-hotbot-yellow">RESTRICTIONS</span> 🚫, and we handle the rest!
+        </p>
       </motion.div>
 
       <motion.div
@@ -51,9 +46,9 @@ export const HeroSection = () => (
       >
         <Link to="/signup">
           <motion.button
-            whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="w-full sm:w-auto bg-white text-purple-600 font-bold py-4 px-8 rounded-lg
+            className="w-full sm:w-auto bg-hotbot-coral text-white font-bold py-4 px-8 rounded-lg
                      shadow-lg transition duration-300 flex items-center justify-center gap-2"
           >
             Get Started <Star className="w-5 h-5" />
@@ -75,13 +70,13 @@ export const HeroSection = () => (
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7 }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 gap-6"
       >
         {[
-          { icon: Sparkles, text: "Profile Management" },
-          { icon: Star, text: "Client Communication" },
-          { icon: Heart, text: "Booking System" },
-          { icon: Sparkles, text: "Premium Security" }
+          { icon: Clock, text: "Save Time ⏰", desc: "Automate client interactions so you can focus on the fun stuff!" },
+          { icon: MessageCircle, text: "Fast & Accurate ⚡", desc: "Quick and spot-on responses to keep things moving!" },
+          { icon: Star, text: "Efficient Management 📅", desc: "Handle appointments like a pro with automated alerts!" },
+          { icon: Heart, text: "Personal Touch 💌", desc: "Keep it real with customized responses!" }
         ].map((item, index) => (
           <motion.div
             key={index}
@@ -97,11 +92,12 @@ export const HeroSection = () => (
                 rotate: [0, 10, -10, 0],
                 scale: [1, 1.1, 1]
               }}
-              transition={{ duration: 3, repeat: Infinity, delay: index * 0.2 }}
+              transition={{ duration: 3, repeat: Infinity }}
             >
-              <item.icon className="w-8 h-8 text-pink-200" />
+              <item.icon className="w-8 h-8 text-hotbot-yellow" />
             </motion.div>
-            <span className="text-sm font-medium text-pink-100">{item.text}</span>
+            <h3 className="text-lg font-bold text-white">{item.text}</h3>
+            <p className="text-sm text-white/90">{item.desc}</p>
           </motion.div>
         ))}
       </motion.div>
