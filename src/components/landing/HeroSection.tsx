@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Sparkles, Star, Heart, Clock, MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const HeroSection = () => (
   <main className="min-h-screen bg-gradient-hotbot text-white px-4 pt-24 md:pt-20 pb-12">
@@ -38,33 +39,36 @@ export const HeroSection = () => (
         </p>
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="flex flex-col sm:flex-row justify-center gap-4 mb-16"
-      >
-        <Link to="/signup" className="w-full sm:w-auto">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="w-full bg-hotbot-coral text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg
-                     shadow-lg transition duration-300 flex items-center justify-center gap-2"
-          >
-            Get Started <Star className="w-5 h-5" />
-          </motion.button>
-        </Link>
-        <Link to="/login" className="w-full sm:w-auto">
-          <motion.button
-            whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
-            whileTap={{ scale: 0.95 }}
-            className="w-full border-2 border-white text-white font-bold py-3 sm:py-4 px-6 sm:px-8
-                     rounded-lg transition duration-300"
-          >
-            Sign In
-          </motion.button>
-        </Link>
-      </motion.div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5 }}
+      className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16"
+    >
+      <Link to="/signup" className="w-full sm:w-auto">
+        <motion.button
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.95 }}
+          className="w-full bg-hotbot-coral text-white font-bold py-4 px-8 rounded-xl
+                   shadow-[0_0_20px_rgba(255,111,97,0.5)] transition-all duration-300 
+                   flex items-center justify-center gap-2 group"
+        >
+          <span>Get Started</span>
+          <Star className="w-5 h-5 group-hover:rotate-180 transition-transform duration-300" />
+        </motion.button>
+      </Link>
+      <Link to="/login" className="w-full sm:w-auto">
+        <motion.button
+          whileHover={{ scale: 1.05, y: -5 }}
+          whileTap={{ scale: 0.95 }}
+          className="w-full border-2 border-white/50 backdrop-blur-sm text-white font-bold 
+                   py-4 px-8 rounded-xl transition-all duration-300 group
+                   hover:border-white hover:bg-white/10"
+        >
+          <span>Sign In</span>
+        </motion.button>
+      </Link>
+    </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}

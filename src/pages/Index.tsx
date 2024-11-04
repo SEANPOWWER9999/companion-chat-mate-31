@@ -7,6 +7,7 @@ import { SmsSection } from "@/components/landing/SmsSection";
 import { AutomatedResponses } from "@/components/landing/AutomatedResponses";
 import { AppointmentAlerts } from "@/components/landing/AppointmentAlerts";
 import { ClosingSection } from "@/components/landing/ClosingSection";
+import { ChatWidget } from "@/components/chat/ChatWidget";
 
 const Index = () => {
   return (
@@ -26,6 +27,7 @@ const Index = () => {
           <ClosingSection />
         </div>
       </main>
+      <ChatWidget />
     </div>
   );
 };
