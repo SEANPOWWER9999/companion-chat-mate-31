@@ -3,6 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,39 +21,25 @@ export const ChatWidget = () => {
         className="fixed bottom-4 right-4 z-50"
       >
         <Button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen(true)}
           className="w-20 h-20 rounded-full bg-hotbot-coral hover:bg-hotbot-pink 
                    shadow-lg transition-all duration-300 flex items-center justify-center"
         >
-          <MessageCircle className={`w-10 h-10 transition-transform duration-300 ${isOpen ? 'rotate-90' : ''}`} />
+          <MessageCircle className="w-10 h-10" />
         </Button>
       </motion.div>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 100, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 100, scale: 0.8 }}
-            className="fixed bottom-28 right-4 w-[400px] bg-white rounded-2xl shadow-2xl z-40
-                     border-2 border-hotbot-pink/20 overflow-hidden"
-          >
-            <div className="bg-gradient-hotbot p-4 flex justify-between items-center">
-              <h3 className="text-white font-bold flex items-center gap-2">
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="max-w-full h-screen w-screen m-0 p-0">
+          <div className="flex flex-col h-full">
+            <DialogHeader className="bg-gradient-hotbot p-4">
+              <DialogTitle className="text-white font-bold flex items-center gap-2">
                 <MessageCircle className="w-5 h-5" />
                 Chat with HOTBOT
-              </h3>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsOpen(false)}
-                className="text-white hover:bg-white/20"
-              >
-                <X className="w-5 h-5" />
-              </Button>
-            </div>
+              </DialogTitle>
+            </DialogHeader>
             
-            <div className="h-[400px] overflow-y-auto p-4 bg-gray-50">
+            <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
               <div className="chat-bubble-bot mb-4">
                 Hey gorgeous! 💖 Ready to revolutionize your business? 
               </div>
@@ -73,7 +65,7 @@ export const ChatWidget = () => {
             </div>
 
             <div className="p-4 border-t border-gray-100 bg-white">
-              <div className="flex gap-2">
+              <div className="flex gap-2 max-w-4xl mx-auto">
                 <input
                   type="text"
                   placeholder="Type your message..."
@@ -86,9 +78,9 @@ export const ChatWidget = () => {
                 </Button>
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };
