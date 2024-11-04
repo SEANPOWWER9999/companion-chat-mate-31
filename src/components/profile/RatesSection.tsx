@@ -1,12 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-
-interface Rates {
-  "30min": { incall: string | null; outcall: string | null };
-  "1hour": { incall: string | null; outcall: string | null };
-  overnight: { incall: string | null; outcall: string | null };
-}
+import { Rates } from "@/types/profile";
 
 interface RatesSectionProps {
   rates: Rates;
@@ -35,13 +30,13 @@ export const RatesSection = ({ rates, isLocked, onRatesChange, onLockChange }: R
           <div className="grid grid-cols-2 gap-4">
             <Input
               placeholder="Incall Rate"
-              value={rates[duration].incall || ''}
+              value={rates[duration].incall}
               onChange={(e) => handleRateChange(duration, 'incall', e.target.value)}
               disabled={isLocked}
             />
             <Input
               placeholder="Outcall Rate"
-              value={rates[duration].outcall || ''}
+              value={rates[duration].outcall}
               onChange={(e) => handleRateChange(duration, 'outcall', e.target.value)}
               disabled={isLocked}
             />
