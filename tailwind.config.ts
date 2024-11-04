@@ -52,6 +52,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        hotbot: {
+          red: "#FF1E56",
+          black: "#1A1A1A",
+          gold: "#FFD700",
+          pink: "#FF69B4",
+          purple: "#800080",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -67,10 +74,21 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        shimmer: {
+          "100%": {
+            transform: "translateX(100%)",
+          },
+        },
+        "background-shine": {
+          from: { backgroundPosition: "200% 0" },
+          to: { backgroundPosition: "-200% 0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        shimmer: "shimmer 2s linear infinite",
+        "background-shine": "background-shine 2s linear infinite",
       },
     },
   },
