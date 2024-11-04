@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 export const HotBotLogo = () => (
   <motion.div
     whileHover={{ scale: 1.05 }}
-    className="flex items-center gap-2"
+    className="flex flex-col items-center gap-1"
   >
     <motion.div
       initial={{ rotate: 0 }}
@@ -17,8 +17,13 @@ export const HotBotLogo = () => (
         <span className="text-white text-sm md:text-lg">🤖</span>
       </div>
     </motion.div>
-    <span className="text-xl md:text-3xl font-bold bg-gradient-to-r from-hotbot-pink to-hotbot-purple bg-clip-text text-transparent">
-      Work My Phone
-    </span>
+    <div className="flex flex-col items-center">
+      <span className="text-xl md:text-3xl font-['Dancing_Script'] bg-gradient-to-r from-hotbot-pink to-hotbot-purple bg-clip-text text-transparent">
+        Work My Phone
+      </span>
+      <span className="text-xs text-gray-500 font-roboto">
+        developed by K&P Development
+      </span>
+    </div>
   </motion.div>
 );
