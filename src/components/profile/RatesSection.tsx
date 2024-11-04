@@ -1,7 +1,12 @@
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Rates } from "@/types/profile";
+
+interface Rates {
+  "30min": { incall: string | null; outcall: string | null };
+  "1hour": { incall: string | null; outcall: string | null };
+  overnight: { incall: string | null; outcall: string | null };
+}
 
 interface RatesSectionProps {
   rates: Rates;

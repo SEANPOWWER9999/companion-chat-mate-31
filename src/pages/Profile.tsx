@@ -10,7 +10,23 @@ import { StatusToggle } from "@/components/profile/StatusToggle";
 import { RatesSection } from "@/components/profile/RatesSection";
 import { ServicesSection } from "@/components/profile/ServicesSection";
 import { ChatbotConfig } from "@/components/profile/ChatbotConfig";
-import { ProfileState, defaultRates } from "@/types/profile";
+
+interface ProfileState {
+  status: string;
+  description: string;
+  rates: {
+    "30min": { incall: string | null; outcall: string | null };
+    "1hour": { incall: string | null; outcall: string | null };
+    overnight: { incall: string | null; outcall: string | null };
+  };
+  services: string[];
+  is_description_locked: boolean;
+  is_rates_locked: boolean;
+  is_services_locked: boolean;
+  chatbot_character: string;
+  chatbot_knowledge: string;
+  chatbot_style: string;
+}
 
 const Profile = () => {
   const { toast } = useToast();
@@ -18,7 +34,11 @@ const Profile = () => {
   const [profile, setProfile] = useState<ProfileState>({
     status: 'offline',
     description: '',
-    rates: defaultRates,
+    rates: {
+      "30min": { incall: null, outcall: null },
+      "1hour": { incall: null, outcall: null },
+      overnight: { incall: null, outcall: null }
+    },
     services: [],
     is_description_locked: false,
     is_rates_locked: false,
@@ -48,7 +68,11 @@ const Profile = () => {
         setProfile({
           status: data.status || 'offline',
           description: data.description || '',
-          rates: data.rates || defaultRates,
+          rates: data.rates || {
+            "30min": { incall: null, outcall: null },
+            "1hour": { incall: null, outcall: null },
+            overnight: { incall: null, outcall: null }
+          },
           services: data.services || [],
           is_description_locked: data.is_description_locked || false,
           is_rates_locked: data.is_rates_locked || false,
@@ -78,16 +102,7 @@ const Profile = () => {
         .from('profile_settings')
         .upsert({
           id: user.id,
-          status: profile.status,
-          description: profile.description,
-          rates: profile.rates,
-          services: profile.services,
-          is_description_locked: profile.is_description_locked,
-          is_rates_locked: profile.is_rates_locked,
-          is_services_locked: profile.is_services_locked,
-          chatbot_character: profile.chatbot_character,
-          chatbot_knowledge: profile.chatbot_knowledge,
-          chatbot_style: profile.chatbot_style
+          ...profile
         });
 
       if (error) throw error;
