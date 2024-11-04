@@ -4,7 +4,7 @@ export const HotBotLogo = () => {
   return (
     <Link to="/" className="flex items-center gap-2">
       <div className="relative flex flex-col w-full">
-        <span className="font-garaley text-4xl md:text-6xl 
+        <span className="font-playfair text-4xl md:text-6xl 
           bg-gradient-to-r from-hotbot-pink via-hotbot-coral to-hotbot-purple 
           bg-clip-text text-transparent 
           filter drop-shadow-lg 
