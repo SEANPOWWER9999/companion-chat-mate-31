@@ -1,5 +1,4 @@
 import { NavBar } from "@/components/landing/NavBar";
-import { HeroSection } from "@/components/landing/HeroSection";
 import { WhyChooseUs } from "@/components/landing/WhyChooseUs";
 import { FeaturesGrid } from "@/components/landing/FeaturesGrid";
 import { HowItWorks } from "@/components/landing/HowItWorks";
@@ -19,7 +18,6 @@ const Index = () => {
       <NavBar />
       <main className="relative">
         <div className="relative z-10 space-y-12 py-8">
-          <HeroSection />
           <WhyChooseUs />
           <FeaturesGrid />
           <HowItWorks />
