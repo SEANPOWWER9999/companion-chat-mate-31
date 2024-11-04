@@ -15,12 +15,10 @@ import { Crown } from "lucide-react";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-800 to-purple-900">
+    <div className="min-h-screen bg-white">
       <NavBar />
       <main className="relative">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1649972904349-6e44c42644a7')] 
-             bg-cover bg-center opacity-10 pointer-events-none" />
-        <div className="relative z-10">
+        <div className="relative z-10 space-y-12 py-8">
           <HeroSection />
           <WhyChooseUs />
           <FeaturesGrid />
@@ -39,10 +37,12 @@ const Index = () => {
       >
         <Link to="/signup">
           <Button
-            className="w-20 h-20 rounded-full bg-hotbot-gold hover:bg-hotbot-pink 
-                     shadow-lg transition-all duration-300 flex items-center justify-center"
+            className="w-20 h-20 rounded-full bg-gradient-to-r from-hotbot-gold via-hotbot-pink to-hotbot-purple
+                     hover:from-hotbot-pink hover:via-hotbot-purple hover:to-hotbot-gold
+                     shadow-lg hover:shadow-xl transition-all duration-500 
+                     flex items-center justify-center border-2 border-white"
           >
-            <Crown className="w-10 h-10" />
+            <Crown className="w-10 h-10 text-white" />
           </Button>
         </Link>
       </motion.div>

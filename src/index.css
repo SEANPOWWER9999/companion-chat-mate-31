@@ -13,7 +13,7 @@
     --border: 0 0% 90%;
     --input: 0 0% 90%;
     --ring: 334 100% 90%;
-    --radius: 0.5rem;
+    --radius: 1rem;
   }
 
   body {
@@ -31,8 +31,8 @@
   }
   
   .btn-gradient {
-    @apply bg-gradient-to-r from-hotbot-pink to-hotbot-purple text-white py-2 px-4 rounded-lg 
-           hover:shadow-lg transition duration-300;
+    @apply bg-gradient-to-r from-hotbot-pink to-hotbot-purple text-white py-2 px-4 rounded-xl
+           hover:shadow-lg transition duration-300 border border-white/20;
   }
   
   .nav-link {
@@ -40,23 +40,41 @@
   }
 
   .card {
-    @apply bg-white p-6 rounded-lg shadow-lg border border-gray-100;
+    @apply bg-white p-6 rounded-xl shadow-lg border border-pink-100;
   }
 
   .input-primary {
-    @apply bg-white border border-gray-200 rounded-lg px-4 py-2
+    @apply bg-white border-2 border-pink-200 rounded-xl px-4 py-2
            focus:ring-2 focus:ring-hotbot-gold focus:border-transparent
            placeholder:text-gray-400 text-gray-700;
   }
 
   .chat-bubble-user {
-    @apply bg-gradient-to-r from-hotbot-pink to-hotbot-purple text-white rounded-lg rounded-tr-none
-           p-4 shadow-md max-w-[80%] ml-auto;
+    @apply bg-gradient-to-r from-hotbot-pink to-hotbot-purple text-white rounded-xl
+           p-4 shadow-md max-w-[80%] ml-auto border border-white/20;
   }
 
   .chat-bubble-bot {
-    @apply bg-gradient-to-r from-hotbot-coral to-hotbot-red text-white rounded-lg rounded-tl-none
-           p-4 shadow-md max-w-[80%];
+    @apply bg-gradient-to-r from-hotbot-coral to-hotbot-red text-white rounded-xl
+           p-4 shadow-md max-w-[80%] border border-white/20;
+  }
+
+  .section-card {
+    @apply bg-white rounded-xl shadow-md border border-pink-100 p-6 mb-6
+           hover:shadow-lg transition-shadow duration-300;
+  }
+
+  .android-button {
+    @apply bg-white text-hotbot-pink font-medium py-3 px-6 rounded-xl
+           shadow-md hover:shadow-lg active:shadow-sm
+           border-2 border-hotbot-pink transition-all duration-300
+           focus:outline-none focus:ring-2 focus:ring-hotbot-pink focus:ring-opacity-50;
+  }
+
+  .android-input {
+    @apply bg-white border-2 border-gray-200 rounded-xl px-4 py-3
+           focus:border-hotbot-pink focus:ring-2 focus:ring-hotbot-pink/50
+           placeholder:text-gray-400 text-gray-700 transition-all duration-300;
   }
 }
 
