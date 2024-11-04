@@ -19,6 +19,7 @@ export default {
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
+        garaley: ["EB Garamond", "serif"],
       },
       backgroundImage: {
         'gradient-hotbot': 'linear-gradient(to right, #FF5B93, #A45DBF)',
