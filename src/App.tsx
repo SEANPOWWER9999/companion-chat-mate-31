@@ -5,10 +5,9 @@ import Signup from "@/pages/Signup";
 import Profile from "@/pages/Profile";
 import AdminDashboard from "@/pages/AdminDashboard";
 import Training from "@/pages/Training";
+import AdminLogin from "@/pages/AdminLogin";
+import TrainerLogin from "@/pages/TrainerLogin";
 import { Toaster } from "@/components/ui/toaster";
-import { useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
 
 const App = () => {
   return (
@@ -20,6 +19,8 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/training" element={<Training />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/trainer-login" element={<TrainerLogin />} />
       </Routes>
       <Toaster />
     </Router>

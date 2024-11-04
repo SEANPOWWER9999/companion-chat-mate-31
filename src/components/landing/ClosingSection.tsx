@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Crown } from "lucide-react";
+import { Crown, Shield, Brain } from "lucide-react";
 
 export const ClosingSection = () => (
   <section className="bg-white py-24">
@@ -38,13 +38,26 @@ export const ClosingSection = () => (
         </div>
         <motion.div
           whileHover={{ scale: 1.05 }}
-          className="mt-12 text-center"
+          className="mt-12 text-center space-y-6"
         >
           <Button asChild className="bg-pink-600 hover:bg-pink-700 text-white font-semibold py-2 px-8 rounded-full">
             <Link to="/signup">
               Get Started Now <Crown className="w-6 h-6 ml-2" />
             </Link>
           </Button>
+          
+          <div className="flex justify-center gap-4 mt-8 pt-8 border-t">
+            <Button asChild variant="ghost" className="text-gray-600 hover:text-hotbot-purple">
+              <Link to="/admin-login" className="flex items-center gap-2">
+                <Shield className="w-4 h-4" /> Admin Login
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" className="text-gray-600 hover:text-hotbot-coral">
+              <Link to="/trainer-login" className="flex items-center gap-2">
+                <Brain className="w-4 h-4" /> Trainer Login
+              </Link>
+            </Button>
+          </div>
         </motion.div>
       </motion.div>
     </div>
