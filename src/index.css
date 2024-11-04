@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;    /* Pure White */
-    --foreground: 0 0% 20%;     /* Dark Charcoal */
+    --background: 195 83% 82%;    /* Light Blue */
+    --foreground: 0 0% 20%;       /* Dark Text */
 
     --card: 0 0% 100%;
     --card-foreground: 0 0% 20%;
@@ -15,24 +15,24 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 20%;
 
-    --primary: 334 100% 62%;    /* Hot Pink */
+    --primary: 334 100% 50%;      /* Hot Pink */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 350 100% 68%;  /* Sexy Red */
+    --secondary: 195 100% 50%;    /* Cyan */
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 40%;
 
-    --accent: 280 84% 56%;      /* Deep Purple */
+    --accent: 334 100% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 334 100% 62%;
-    --input: 334 100% 62%;
-    --ring: 334 100% 62%;
+    --border: 195 83% 82%;
+    --input: 195 83% 82%;
+    --ring: 195 83% 82%;
 
     --radius: 1.5rem;
   }
@@ -43,51 +43,46 @@
     @apply border-border;
   }
   body {
-    @apply bg-white text-foreground;
-    font-family: 'Montserrat', sans-serif;
+    @apply bg-gradient-to-r from-[#ADE8F4] to-[#FFB6C1] min-h-screen font-[Roboto];
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Raleway', sans-serif;
+    @apply font-bold bg-gradient-to-r from-[#FF0096] to-[#00CCFF] bg-clip-text text-transparent;
   }
 }
 
 @layer components {
-  .hotbot-gradient {
-    @apply bg-gradient-to-br from-[#FF1493] via-[#FF69B4] to-[#FF00FF];
+  .chat-gradient {
+    @apply bg-gradient-to-r from-[#ADE8F4] to-[#FFB6C1];
   }
 
-  .hotbot-card {
-    @apply relative overflow-hidden rounded-3xl border border-[#FF1493]/20 
+  .chat-card {
+    @apply relative overflow-hidden rounded-3xl border border-white/20 
            bg-white/90 backdrop-blur-xl p-6 shadow-lg transition-all 
-           hover:shadow-2xl hover:shadow-[#FF1493]/20 hover:scale-105 hover:rotate-1;
+           hover:shadow-2xl hover:shadow-pink-200/20;
   }
 
-  .hotbot-button {
+  .chat-button {
     @apply relative inline-flex items-center justify-center overflow-hidden 
-           rounded-[30px] bg-gradient-to-br from-[#FF1493] via-[#FF69B4] to-[#FF00FF]
+           rounded-[30px] bg-gradient-to-r from-[#FF0096] to-[#00CCFF]
            px-8 py-4 font-medium text-white transition-all duration-300
-           hover:scale-105 hover:rotate-1 hover:shadow-lg hover:shadow-[#FF1493]/50 
-           active:scale-95 perspective-1000;
+           hover:scale-105 hover:shadow-lg hover:shadow-pink-500/50 
+           active:scale-95;
   }
 
-  .hotbot-input {
-    @apply rounded-xl border-2 border-[#FF1493]/20 bg-white 
-           px-4 py-2 text-[#333333] placeholder:text-[#FF1493]/50 
-           focus:border-[#FF1493] focus:outline-none focus:ring-2 
-           focus:ring-[#FF1493]/50 transition-all hover:scale-101;
+  .chat-input {
+    @apply rounded-xl border-2 border-pink-200 bg-white/80 
+           px-4 py-2 text-gray-800 placeholder:text-gray-400 
+           focus:border-pink-400 focus:outline-none focus:ring-2 
+           focus:ring-pink-400/50 transition-all;
   }
 
-  @keyframes pulse {
-    0% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.05) rotate(1deg); }
-    100% { transform: scale(1) rotate(0deg); }
+  .chat-nav {
+    @apply fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-md
+           py-4 px-6 flex items-center justify-between;
   }
 
-  .animate-button-pulse {
-    animation: pulse 0.3s ease-in-out;
-  }
-
-  .perspective-1000 {
-    perspective: 1000px;
+  .chat-nav-link {
+    @apply text-gray-600 hover:text-pink-500 transition-colors duration-300
+           font-medium px-4 py-2 rounded-full hover:bg-pink-50;
   }
 }

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Heart, Sparkles } from "lucide-react";
 
 export const HeroSection = () => (
-  <section className="py-20 px-4 bg-gradient-to-r from-hotbot.primary via-hotbot.secondary to-hotbot.accent">
+  <section className="py-32 px-4 chat-gradient">
     <div className="container mx-auto text-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -16,7 +16,7 @@ export const HeroSection = () => (
           initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, type: "spring" }}
-          className="text-5xl font-bold mb-4 text-white"
+          className="text-6xl font-bold mb-6"
         >
           Welcome to The HOTBOT
         </motion.h1>
@@ -24,7 +24,7 @@ export const HeroSection = () => (
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="text-xl mb-8 text-white"
+          className="text-2xl mb-12 text-gray-700"
         >
           Your ultimate AI companion for all things hot and trending!
         </motion.p>
@@ -34,18 +34,18 @@ export const HeroSection = () => (
           transition={{ delay: 0.6 }}
           className="flex flex-row justify-center gap-6"
         >
-          <Button asChild size="lg" 
-            className="bg-white text-hotbot.primary font-bold hover:bg-gray-100 transition duration-300"
-          >
+          <Button asChild size="lg" className="chat-button">
             <Link to="/signup" className="flex items-center gap-2">
               Get Started <Heart className="w-6 h-6" />
             </Link>
           </Button>
           <Button asChild size="lg" 
-            className="bg-white/20 text-white font-bold hover:bg-white/30 transition duration-300 backdrop-blur-sm"
+            className="bg-white/20 text-gray-700 font-bold hover:bg-white/30 
+                     transition duration-300 backdrop-blur-sm rounded-[30px]
+                     border-2 border-white/50 hover:shadow-lg"
           >
             <Link to="/signup" className="flex items-center gap-2">
-              Sign Up <Sparkles className="w-6 h-6" />
+              Learn More <Sparkles className="w-6 h-6" />
             </Link>
           </Button>
         </motion.div>
