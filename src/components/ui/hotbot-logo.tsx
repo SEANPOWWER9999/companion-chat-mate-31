@@ -7,7 +7,7 @@ export const HotBotLogo = () => {
       <div className="relative flex items-center">
         <Smartphone className="w-8 h-8 text-hotbot-pink group-hover:rotate-12 transition-transform duration-300" />
         <div className="flex flex-col">
-          <span className="font-playfair font-black text-2xl md:text-3xl
+          <span className="font-playfair font-black text-3xl md:text-4xl
             bg-gradient-to-r from-hotbot-pink via-hotbot-coral to-hotbot-purple 
             bg-clip-text text-transparent 
             filter drop-shadow-lg 
