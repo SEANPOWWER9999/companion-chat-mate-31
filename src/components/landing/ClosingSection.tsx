@@ -58,8 +58,8 @@ export const ClosingSection = () => (
             transition={{ delay: 0.4 }}
             className="relative"
           >
-            <p className="text-3xl mb-12 font-bold bg-gradient-to-r from-[#FF1493] to-[#9400D3] 
-                         text-transparent bg-clip-text relative z-10">
+            <p className="text-5xl mb-12 font-black bg-gradient-to-br from-[#FF00FF] via-[#FF1493] to-[#FF69B4] 
+                         text-transparent bg-clip-text relative z-10 tracking-tight">
               Ready to make it rain? Let's get those messages flooding in! 
               <motion.span
                 animate={{ scale: [1, 1.3, 1], rotate: [0, 15, -15, 0] }}
