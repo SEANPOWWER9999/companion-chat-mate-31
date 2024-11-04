@@ -17,8 +17,8 @@ const Index = () => {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1649972904349-6e44c42644a7')] 
              bg-cover bg-center opacity-10 pointer-events-none" />
         <div className="relative z-10">
-          <WhyChooseUs />
           <HeroSection />
+          <WhyChooseUs />
           <FeaturesGrid />
           <HowItWorks />
           <SmsSection />
