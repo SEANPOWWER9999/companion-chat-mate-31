@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
 
 @tailwind base;
 @tailwind components;
@@ -35,7 +34,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-gradient-to-r from-[#ADE8F4] to-[#FFB6C1] min-h-screen font-[Roboto];
+    @apply bg-gradient-to-b from-[#ffafbd] to-[#ffc3a0] font-['Roboto'];
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold bg-gradient-to-r from-[#FF0096] to-[#00CCFF] bg-clip-text text-transparent;
