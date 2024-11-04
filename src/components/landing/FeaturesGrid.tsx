@@ -41,17 +41,19 @@ export const FeaturesGrid = () => (
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             whileHover={{ y: -10 }}
-            className="bg-white p-6 rounded-lg shadow-lg text-center group hover:shadow-xl transition-all duration-300"
+            className="bg-white p-6 rounded-xl shadow-lg text-center group hover:shadow-xl transition-all duration-300
+                     border-2 border-pink-100"
           >
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.5 }}
-              className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full 
-                       flex items-center justify-center text-white"
+              className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-hotbot-pink to-hotbot-purple rounded-full 
+                       flex items-center justify-center text-white border border-white/20"
             >
               <feature.icon className="w-8 h-8" />
             </motion.div>
-            <h3 className="text-xl font-bold mb-2 text-gray-800">{feature.title}</h3>
+            <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-hotbot-pink to-hotbot-purple 
+                        bg-clip-text text-transparent">{feature.title}</h3>
             <p className="text-gray-600">{feature.description}</p>
           </motion.div>
         ))}
