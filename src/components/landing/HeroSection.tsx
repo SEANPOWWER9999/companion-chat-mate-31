@@ -32,13 +32,20 @@ export const HeroSection = () => (
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="flex flex-col sm:flex-row justify-center gap-6"
+          className="flex flex-row justify-center gap-6"
         >
           <Button asChild size="lg" 
             className="bg-white text-pink-500 font-bold hover:bg-gray-200 transition duration-300"
           >
             <Link to="/signup" className="flex items-center gap-2">
               Get Started <Heart className="w-6 h-6" />
+            </Link>
+          </Button>
+          <Button asChild size="lg" 
+            className="bg-gray-800 text-white font-bold hover:bg-gray-700 transition duration-300"
+          >
+            <Link to="/signup" className="flex items-center gap-2">
+              Sign Up <Sparkles className="w-6 h-6" />
             </Link>
           </Button>
         </motion.div>
