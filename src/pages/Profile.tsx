@@ -48,7 +48,7 @@ const Profile = () => {
         setProfile({
           status: data.status || 'offline',
           description: data.description || '',
-          rates: data.rates ? JSON.parse(JSON.stringify(data.rates)) : defaultRates,
+          rates: data.rates || defaultRates,
           services: data.services || [],
           is_description_locked: data.is_description_locked || false,
           is_rates_locked: data.is_rates_locked || false,

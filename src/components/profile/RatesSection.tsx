@@ -30,13 +30,13 @@ export const RatesSection = ({ rates, isLocked, onRatesChange, onLockChange }: R
           <div className="grid grid-cols-2 gap-4">
             <Input
               placeholder="Incall Rate"
-              value={rates[duration].incall}
+              value={rates[duration].incall || ''}
               onChange={(e) => handleRateChange(duration, 'incall', e.target.value)}
               disabled={isLocked}
             />
             <Input
               placeholder="Outcall Rate"
-              value={rates[duration].outcall}
+              value={rates[duration].outcall || ''}
               onChange={(e) => handleRateChange(duration, 'outcall', e.target.value)}
               disabled={isLocked}
             />

@@ -2,10 +2,10 @@ import { Database } from "@/integrations/supabase/types";
 
 export type ServiceType = Database['public']['Enums']['service_type'];
 
-export interface Rates {
-  "30min": { incall: string; outcall: string };
-  "1hour": { incall: string; outcall: string };
-  overnight: { incall: string; outcall: string };
+export type Rates = {
+  "30min": { incall: string | null; outcall: string | null };
+  "1hour": { incall: string | null; outcall: string | null };
+  overnight: { incall: string | null; outcall: string | null };
 }
 
 export interface ProfileState {
@@ -22,7 +22,7 @@ export interface ProfileState {
 }
 
 export const defaultRates: Rates = {
-  "30min": { incall: "", outcall: "" },
-  "1hour": { incall: "", outcall: "" },
-  overnight: { incall: "", outcall: "" }
+  "30min": { incall: null, outcall: null },
+  "1hour": { incall: null, outcall: null },
+  overnight: { incall: null, outcall: null }
 };
