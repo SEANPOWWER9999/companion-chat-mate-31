@@ -24,7 +24,7 @@ export const ClosingSection = () => (
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
             <h2 className="text-8xl md:text-[12rem] font-black mb-12 text-white drop-shadow-2xl">
-              Time to Shine! 
+              Start Today! 
               <motion.span
                 animate={{ rotate: [0, 10, -10, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
@@ -42,7 +42,7 @@ export const ClosingSection = () => (
             className="relative"
           >
             <p className="text-7xl mb-12 font-black text-white/90 tracking-tight">
-              Ready to make it rain? Let's get those messages flooding in! 
+              Let's get those messages flowing! 
               <motion.span
                 animate={{ scale: [1, 1.3, 1], rotate: [0, 15, -15, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
@@ -63,7 +63,7 @@ export const ClosingSection = () => (
           <Button asChild className="bg-white hover:bg-gray-100 text-pink-600 text-4xl px-20 py-10 
                                    font-black rounded-full shadow-xl hover:shadow-2xl transition-all duration-500">
             <Link to="/signup" className="flex items-center gap-3">
-              Start Slaying Now!
+              Get Started Now!
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
