@@ -16,9 +16,8 @@ export const HotBotLogo = () => {
             Work My Phone
           </span>
           <span className="absolute -bottom-3 right-0 
-            text-[0.6rem] font-black text-gray-400 
-            tracking-wider uppercase whitespace-nowrap
-            bg-gradient-to-r from-gray-400 to-gray-600 bg-clip-text">
+            text-[0.6rem] font-black text-black 
+            tracking-wider uppercase whitespace-nowrap">
             K&P Development
           </span>
         </div>
