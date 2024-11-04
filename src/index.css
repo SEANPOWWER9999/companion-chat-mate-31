@@ -53,34 +53,34 @@
 
 @layer components {
   .hotbot-gradient {
-    @apply bg-gradient-to-r from-[#FF1493] via-[#FF69B4] to-[#9400D3];
+    @apply bg-gradient-to-br from-[#FF1493] via-[#FF69B4] to-[#FF00FF];
   }
 
   .hotbot-card {
     @apply relative overflow-hidden rounded-3xl border border-[#FF1493]/20 
            bg-white/90 backdrop-blur-xl p-6 shadow-lg transition-all 
-           hover:shadow-2xl hover:shadow-[#FF1493]/20;
+           hover:shadow-2xl hover:shadow-[#FF1493]/20 hover:scale-105 hover:rotate-1;
   }
 
   .hotbot-button {
     @apply relative inline-flex items-center justify-center overflow-hidden 
-           rounded-[30px] bg-gradient-to-r from-[#FF1493] to-[#FF69B4] 
+           rounded-[30px] bg-gradient-to-br from-[#FF1493] via-[#FF69B4] to-[#FF00FF]
            px-8 py-4 font-medium text-white transition-all duration-300
-           hover:scale-105 hover:shadow-lg hover:shadow-[#FF1493]/50 
-           active:translate-y-0.5 perspective-1000;
+           hover:scale-105 hover:rotate-1 hover:shadow-lg hover:shadow-[#FF1493]/50 
+           active:scale-95 perspective-1000;
   }
 
   .hotbot-input {
     @apply rounded-xl border-2 border-[#FF1493]/20 bg-white 
            px-4 py-2 text-[#333333] placeholder:text-[#FF1493]/50 
            focus:border-[#FF1493] focus:outline-none focus:ring-2 
-           focus:ring-[#FF1493]/50 transition-all;
+           focus:ring-[#FF1493]/50 transition-all hover:scale-101;
   }
 
   @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.05) rotate(1deg); }
+    100% { transform: scale(1) rotate(0deg); }
   }
 
   .animate-button-pulse {
