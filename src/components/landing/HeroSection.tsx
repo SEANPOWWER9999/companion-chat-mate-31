@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Sparkles, Star, Heart, Clock, MessageCircle } from "lucide-react";
 
 export const HeroSection = () => (
-  <main className="min-h-screen bg-gradient-hotbot text-white px-4 pt-20 pb-12">
+  <main className="min-h-screen bg-gradient-hotbot text-white px-4 pt-24 md:pt-20 pb-12">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -16,22 +16,22 @@ export const HeroSection = () => (
         transition={{ duration: 0.5 }}
         className="mb-12 space-y-6"
       >
-        <h1 className="text-5xl md:text-7xl font-bold flex items-center justify-center gap-4">
+        <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold flex flex-col sm:flex-row items-center justify-center gap-4">
           Time to Shine, Gorgeous!{" "}
           <motion.span
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <Sparkles className="w-12 h-12 text-hotbot-yellow" />
+            <Sparkles className="w-8 h-8 sm:w-12 sm:h-12 text-hotbot-yellow" />
           </motion.span>
         </h1>
         
-        <p className="text-xl md:text-2xl text-white/90">
+        <p className="text-lg sm:text-xl md:text-2xl text-white/90">
           You just posted your ad, and now your phone's blowing up—ugh, here we go again! 😩
           But don't sweat it; that's where <span className="font-bold text-hotbot-yellow">The HOTBOT</span> steps in! 💖
         </p>
         
-        <p className="text-lg md:text-xl text-white/85">
+        <p className="text-base sm:text-lg md:text-xl text-white/85">
           The HOTBOT cuts through the nonsense, filtering out the time-wasters so you only deal with 
           cash-ready clients who matter. 💸 You set your <span className="text-hotbot-yellow">RATES</span> 💰 
           and <span className="text-hotbot-yellow">RESTRICTIONS</span> 🚫, and we handle the rest!
@@ -44,21 +44,21 @@ export const HeroSection = () => (
         transition={{ delay: 0.5 }}
         className="flex flex-col sm:flex-row justify-center gap-4 mb-16"
       >
-        <Link to="/signup">
+        <Link to="/signup" className="w-full sm:w-auto">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="w-full sm:w-auto bg-hotbot-coral text-white font-bold py-4 px-8 rounded-lg
+            className="w-full bg-hotbot-coral text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg
                      shadow-lg transition duration-300 flex items-center justify-center gap-2"
           >
             Get Started <Star className="w-5 h-5" />
           </motion.button>
         </Link>
-        <Link to="/login">
+        <Link to="/login" className="w-full sm:w-auto">
           <motion.button
             whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
             whileTap={{ scale: 0.95 }}
-            className="w-full sm:w-auto border-2 border-white text-white font-bold py-4 px-8
+            className="w-full border-2 border-white text-white font-bold py-3 sm:py-4 px-6 sm:px-8
                      rounded-lg transition duration-300"
           >
             Sign In
@@ -70,7 +70,7 @@ export const HeroSection = () => (
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7 }}
-        className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
       >
         {[
           { icon: Clock, text: "Save Time ⏰", desc: "Automate client interactions so you can focus on the fun stuff!" },
