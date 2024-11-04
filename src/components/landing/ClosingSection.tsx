@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Sparkles, Star, Heart, DollarSign, Crown } from "lucide-react";
 
 export const ClosingSection = () => (
-  <section className="py-32 px-4 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 overflow-hidden">
+  <section className="py-32 px-4 bg-gradient-to-r from-pink-500 to-purple-500 overflow-hidden">
     <div className="container mx-auto text-center relative">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -12,7 +12,6 @@ export const ClosingSection = () => (
         transition={{ duration: 0.8 }}
         className="max-w-6xl mx-auto space-y-20 relative"
       >
-        {/* Main content */}
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
@@ -54,13 +53,12 @@ export const ClosingSection = () => (
           </motion.div>
         </motion.div>
 
-        {/* CTA Button */}
         <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           className="relative z-10"
         >
-          <Button asChild className="bg-white hover:bg-gray-100 text-pink-600 text-4xl px-20 py-10 
+          <Button asChild className="bg-white hover:bg-gray-100 text-pink-500 text-4xl px-20 py-10 
                                    font-black rounded-full shadow-xl hover:shadow-2xl transition-all duration-500">
             <Link to="/signup" className="flex items-center gap-3">
               Get Started Now!
