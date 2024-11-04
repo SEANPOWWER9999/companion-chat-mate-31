@@ -4,9 +4,9 @@ import { Sparkles, Star, Heart } from "lucide-react";
 
 export const HeroSection = () => (
   <main className="flex-grow flex flex-col items-center justify-center text-center px-4 min-h-screen 
-                   bg-gradient-hotbot relative overflow-hidden">
+                   bg-gradient-to-br from-white via-pink-50 to-white relative overflow-hidden">
     <div className="absolute inset-0 bg-[url('/woman-texting-silhouette.svg')] 
-         bg-no-repeat bg-center opacity-10 animate-pulse" />
+         bg-no-repeat bg-center opacity-5 animate-pulse" />
     
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -18,7 +18,7 @@ export const HeroSection = () => (
         initial={{ scale: 0.9 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.5, type: "spring" }}
-        className="text-6xl md:text-7xl font-bold text-white mb-6 flex items-center justify-center gap-4"
+        className="text-6xl md:text-7xl font-bold text-gray-800 mb-6 flex items-center justify-center gap-4"
       >
         Time to Shine, Gorgeous! <Sparkles className="w-12 h-12 text-hotbot-gold animate-pulse" />
       </motion.h1>
@@ -27,15 +27,15 @@ export const HeroSection = () => (
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
-        className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed"
+        className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed"
       >
         Your phone's blowing up? Don't sweat it! 💅 Let The HOTBOT handle the 
         boring stuff while you focus on what matters. We've got your back! <Heart className="inline-block w-6 h-6 text-hotbot-coral" />
       </motion.p>
 
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.6 }}
         className="flex flex-col sm:flex-row justify-center gap-4"
       >
@@ -61,7 +61,7 @@ export const HeroSection = () => (
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.9 }}
-        className="mt-12 flex flex-wrap justify-center gap-6 text-white/80"
+        className="mt-12 flex flex-wrap justify-center gap-6 text-gray-600"
       >
         <div className="flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-hotbot-gold" />
