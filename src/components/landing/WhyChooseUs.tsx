@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Clock, Zap, Crown, Sparkles, Heart, Star } from "lucide-react";
+import { Clock, Zap, Crown, Heart, Star } from "lucide-react";
 
 export const WhyChooseUs = () => (
   <section className="py-20 px-4 bg-gradient-to-br from-hotbot-pink via-hotbot-purple to-hotbot-coral">

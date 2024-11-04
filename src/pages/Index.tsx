@@ -1,11 +1,11 @@
 import { NavBar } from "@/components/landing/NavBar";
 import { HeroSection } from "@/components/landing/HeroSection";
+import { WhyChooseUs } from "@/components/landing/WhyChooseUs";
 import { FeaturesGrid } from "@/components/landing/FeaturesGrid";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { SmsSection } from "@/components/landing/SmsSection";
 import { AutomatedResponses } from "@/components/landing/AutomatedResponses";
 import { AppointmentAlerts } from "@/components/landing/AppointmentAlerts";
-import { WhyChooseUs } from "@/components/landing/WhyChooseUs";
 import { ClosingSection } from "@/components/landing/ClosingSection";
 
 const Index = () => {
@@ -17,12 +17,12 @@ const Index = () => {
              bg-cover bg-center opacity-10 pointer-events-none" />
         <div className="relative z-10">
           <HeroSection />
+          <WhyChooseUs />
           <FeaturesGrid />
           <HowItWorks />
           <SmsSection />
           <AutomatedResponses />
           <AppointmentAlerts />
-          <WhyChooseUs />
           <ClosingSection />
         </div>
       </main>
