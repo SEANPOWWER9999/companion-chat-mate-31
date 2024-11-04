@@ -2,38 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
 @layer base {
   :root {
-    --background: 195 83% 82%;    /* Light Blue */
-    --foreground: 0 0% 20%;       /* Dark Text */
-
+    --background: 195 83% 82%;
+    --foreground: 0 0% 20%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 20%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 20%;
-
-    --primary: 334 100% 50%;      /* Hot Pink */
+    --primary: 334 100% 50%;
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 195 100% 50%;    /* Cyan */
+    --secondary: 195 100% 50%;
     --secondary-foreground: 0 0% 100%;
-
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 40%;
-
     --accent: 334 100% 50%;
     --accent-foreground: 0 0% 100%;
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 195 83% 82%;
     --input: 195 83% 82%;
     --ring: 195 83% 82%;
-
     --radius: 1.5rem;
   }
 }
@@ -51,38 +40,17 @@
 }
 
 @layer components {
-  .chat-gradient {
+  .gradient-bg {
     @apply bg-gradient-to-r from-[#ADE8F4] to-[#FFB6C1];
   }
-
-  .chat-card {
-    @apply relative overflow-hidden rounded-3xl border border-white/20 
-           bg-white/90 backdrop-blur-xl p-6 shadow-lg transition-all 
-           hover:shadow-2xl hover:shadow-pink-200/20;
+  
+  .gradient-button {
+    @apply bg-gradient-to-r from-[#FF0096] to-[#00CCFF] text-white font-bold 
+           py-2 px-6 rounded shadow-md hover:shadow-lg transition duration-300;
   }
-
-  .chat-button {
-    @apply relative inline-flex items-center justify-center overflow-hidden 
-           rounded-[30px] bg-gradient-to-r from-[#FF0096] to-[#00CCFF]
-           px-8 py-4 font-medium text-white transition-all duration-300
-           hover:scale-105 hover:shadow-lg hover:shadow-pink-500/50 
-           active:scale-95;
-  }
-
-  .chat-input {
-    @apply rounded-xl border-2 border-pink-200 bg-white/80 
-           px-4 py-2 text-gray-800 placeholder:text-gray-400 
-           focus:border-pink-400 focus:outline-none focus:ring-2 
-           focus:ring-pink-400/50 transition-all;
-  }
-
-  .chat-nav {
-    @apply fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-md
-           py-4 px-6 flex items-center justify-between;
-  }
-
-  .chat-nav-link {
-    @apply text-gray-600 hover:text-pink-500 transition-colors duration-300
-           font-medium px-4 py-2 rounded-full hover:bg-pink-50;
+  
+  .nav-link {
+    @apply text-gray-600 hover:bg-gradient-to-r hover:from-[#FF0096] hover:to-[#00CCFF] 
+           hover:bg-clip-text hover:text-transparent transition-all duration-300;
   }
 }

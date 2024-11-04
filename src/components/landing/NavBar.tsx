@@ -1,23 +1,20 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 
 export const NavBar = () => (
-  <nav className="chat-nav">
-    <div className="container mx-auto">
-      <div className="flex items-center justify-between">
-        <Link to="/" className="text-4xl font-bold bg-gradient-to-r from-[#FF0096] to-[#00CCFF] bg-clip-text text-transparent">
-          The HOTBOT
-        </Link>
-        <div className="hidden md:flex items-center gap-8">
-          <Link to="/features" className="chat-nav-link">Features</Link>
-          <Link to="/pricing" className="chat-nav-link">Pricing</Link>
-          <Link to="/login" className="chat-nav-link">Login</Link>
-          <Button asChild className="chat-button">
-            <Link to="/signup">Get Started</Link>
-          </Button>
-        </div>
-      </div>
+  <header className="w-full bg-white/90 backdrop-blur-sm shadow-md py-4 fixed top-0 left-0 right-0 z-50">
+    <div className="container mx-auto flex justify-between items-center px-4">
+      <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-[#FF0096] to-[#00CCFF] bg-clip-text text-transparent">
+        User Private Chat
+      </Link>
+      <nav>
+        <ul className="flex space-x-4">
+          <li><Link to="/" className="nav-link">Home</Link></li>
+          <li><Link to="/login" className="nav-link">Login</Link></li>
+          <li><Link to="/signup" className="nav-link">Sign Up</Link></li>
+          <li><Link to="/profile" className="nav-link">Profile</Link></li>
+        </ul>
+      </nav>
     </div>
-  </nav>
+  </header>
 );
