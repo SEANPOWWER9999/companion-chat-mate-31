@@ -32,6 +32,9 @@ const Index = () => {
               </motion.span>
             </Link>
             <div className="flex items-center gap-8">
+              <Link to="/" className="text-white/80 hover:text-pink-400 transition-colors">Home</Link>
+              <Link to="/profile" className="text-white/80 hover:text-pink-400 transition-colors">Profile</Link>
+              <Link to="/subscription" className="text-white/80 hover:text-pink-400 transition-colors">Subscription</Link>
               <Link to="/login" className="text-white/80 hover:text-pink-400 transition-colors">Login</Link>
               <motion.div whileHover={{ scale: 1.05 }}>
                 <Button asChild className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-full px-6">
