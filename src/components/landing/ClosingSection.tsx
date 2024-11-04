@@ -1,110 +1,141 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Sparkles, Star, Heart } from "lucide-react";
+import { Sparkles, Star, Heart, DollarSign, Crown } from "lucide-react";
 
 export const ClosingSection = () => (
-  <section className="py-24 px-4 bg-gradient-to-br from-white via-pink-50 to-white overflow-hidden">
+  <section className="py-32 px-4 bg-gradient-to-br from-white via-pink-50 to-white overflow-hidden">
     <div className="container mx-auto text-center relative">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-5xl mx-auto space-y-16 relative"
+        transition={{ duration: 0.8 }}
+        className="max-w-6xl mx-auto space-y-20 relative"
       >
+        {/* Decorative elements */}
+        <motion.div 
+          className="absolute -top-20 -left-20 text-pink-400 opacity-50"
+          animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+        >
+          <Star className="w-32 h-32" />
+        </motion.div>
+        <motion.div 
+          className="absolute -bottom-20 -right-20 text-purple-400 opacity-50"
+          animate={{ rotate: -360, scale: [1, 1.2, 1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+        >
+          <Heart className="w-32 h-32" />
+        </motion.div>
+
+        {/* Main content */}
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
+          transition={{ duration: 0.8, type: "spring", bounce: 0.5 }}
+          className="relative z-10"
         >
-          <h2 className="text-5xl md:text-7xl font-extrabold mb-10 text-transparent bg-clip-text bg-gradient-to-r from-[#FF1493] to-[#9400D3] flex items-center justify-center gap-3">
-            <motion.span
-              initial={{ rotate: -10 }}
-              animate={{ rotate: 10 }}
-              transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-            >
-              Time to Shine, Babe! 
-            </motion.span>
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <Sparkles className="w-12 h-12 text-[#FF1493]" />
-            </motion.div>
-          </h2>
-          <motion.p 
-            className="text-2xl mb-8 text-gray-700 font-medium"
+          <motion.div
+            animate={{ y: [-10, 10, -10] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <h2 className="text-7xl md:text-9xl font-black mb-12 text-transparent bg-clip-text 
+                         bg-gradient-to-r from-[#FF1493] via-[#FF69B4] to-[#9400D3]">
+              Time to Shine! 
+              <motion.span
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="inline-block"
+              >
+                👑
+              </motion.span>
+            </h2>
+          </motion.div>
+
+          <motion.div
             initial={{ x: -50, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.4 }}
+            className="relative"
           >
-            It's that time again—post your ad and watch the messages flood in! You know the drill: 
-            10% are broke, another 10% just want to chat, and the rest? Let's be real, they're here for you! 
-            <motion.span
-              animate={{ rotate: [0, 14, -8, 14, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
-              className="inline-block"
-            >
-              💁‍♀️
-            </motion.span>
-          </motion.p>
+            <p className="text-3xl mb-12 font-bold bg-gradient-to-r from-[#FF1493] to-[#9400D3] 
+                         text-transparent bg-clip-text relative z-10">
+              Ready to make it rain? Let's get those messages flooding in! 
+              <motion.span
+                animate={{ scale: [1, 1.3, 1], rotate: [0, 15, -15, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="inline-block ml-2"
+              >
+                💸
+              </motion.span>
+            </p>
+          </motion.div>
         </motion.div>
 
+        {/* BOOM section */}
         <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
+          initial={{ scale: 0.8, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative"
+          transition={{ duration: 1, type: "spring", bounce: 0.6 }}
+          className="relative z-10"
         >
           <motion.div
-            className="absolute -top-10 -left-10 text-pink-400"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            animate={{ 
+              scale: [1, 1.1, 1],
+              rotate: [-1, 1, -1],
+            }}
+            transition={{ duration: 3, repeat: Infinity }}
           >
-            <Star className="w-16 h-16" />
+            <h2 className="text-8xl md:text-[10rem] font-black mb-12 text-transparent bg-clip-text 
+                         bg-gradient-to-r from-[#FF1493] via-[#FF69B4] to-[#9400D3] drop-shadow-2xl">
+              BOOM! 
+              <motion.span
+                animate={{ scale: [1, 1.5, 1], rotate: [0, 20, -20, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="inline-block"
+              >
+                💥
+              </motion.span>
+            </h2>
           </motion.div>
-          <motion.div
-            className="absolute -bottom-10 -right-10 text-purple-400"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          >
-            <Heart className="w-16 h-16" />
-          </motion.div>
-          
-          <h2 className="text-6xl md:text-8xl font-black mb-10 text-transparent bg-clip-text bg-gradient-to-r from-[#FF1493] to-[#9400D3]">
-            And then—BOOM! 
-            <motion.span
-              animate={{ scale: [1, 1.4, 1] }}
-              transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3 }}
-              className="inline-block"
-            >
-              💥
-            </motion.span>
-          </h2>
+
           <motion.p 
-            className="text-2xl mb-12 text-gray-700 font-medium"
+            className="text-3xl mb-16 font-bold text-[#FF1493]"
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.6 }}
           >
-            You find him! He's got the vibe, seems cash-ready, and you just can't wait to turn 
-            this into a night to remember! With The HOTBOT, you're living your best life, babe! 
+            You've got this! Let's make every message count! 
             <motion.span
-              animate={{ scale: [1, 1.2, 1], rotate: [0, 14, -8, 14, 0] }}
+              animate={{ 
+                scale: [1, 1.2, 1],
+                rotate: [0, 10, -10, 0],
+              }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="inline-block"
+              className="inline-block ml-2"
             >
-              💖
+              ✨
             </motion.span>
           </motion.p>
         </motion.div>
 
+        {/* CTA Button */}
         <motion.div
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
+          className="relative z-10"
         >
-          <Button asChild className="hotbot-button text-2xl px-16 py-8 font-bold">
-            <Link to="/signup">Start Your Journey Now! ✨</Link>
+          <Button asChild className="hotbot-button text-3xl px-20 py-10 font-black 
+                                   shadow-xl hover:shadow-2xl transition-all duration-500">
+            <Link to="/signup" className="flex items-center gap-3">
+              Start Slaying Now!
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                <Crown className="w-8 h-8" />
+              </motion.div>
+            </Link>
           </Button>
         </motion.div>
       </motion.div>
