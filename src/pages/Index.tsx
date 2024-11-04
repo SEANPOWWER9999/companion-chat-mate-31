@@ -5,7 +5,7 @@ import { HowItWorks } from "@/components/landing/HowItWorks";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-hotbot-dark via-hotbot-primary/20 to-hotbot-dark">
+    <div className="min-h-screen bg-white">
       <NavBar />
       <HeroSection />
       <FeaturesGrid />

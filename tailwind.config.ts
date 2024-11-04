@@ -53,11 +53,11 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         hotbot: {
-          primary: "#9333EA",    // Deep purple
-          secondary: "#22D3EE",  // Cyan
-          accent: "#F0ABFC",     // Light purple
-          dark: "#0F172A",       // Navy blue
-          light: "#E2E8F0"       // Light gray
+          primary: "#FF1493",    // Hot Pink
+          secondary: "#FF69B4",  // Pink
+          accent: "#9400D3",     // Purple
+          dark: "#333333",       // Dark Gray
+          light: "#FFFFFF"       // White
         },
       },
       borderRadius: {
