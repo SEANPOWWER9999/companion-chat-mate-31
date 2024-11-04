@@ -1,4 +1,4 @@
-import { MessageCircle, Shield, Clock } from "lucide-react";
+import { MessageCircle, Shield, Clock, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 export const FeaturesGrid = () => (
@@ -10,11 +10,11 @@ export const FeaturesGrid = () => (
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="hotbot-card"
+          className="relative overflow-hidden rounded-3xl border border-pink-500/20 bg-gradient-to-br from-purple-900/80 to-pink-500/20 backdrop-blur-xl p-8 shadow-lg hover:shadow-pink-500/20"
         >
-          <MessageCircle className="h-12 w-12 text-hotbot-secondary mb-6" />
+          <MessageCircle className="h-12 w-12 text-pink-400 mb-6" />
           <h3 className="text-2xl font-bold text-white mb-4">Flirt Like a Pro! 😉</h3>
-          <p className="text-white/70">Keep the convo alive without lifting a finger. We know just what to say!</p>
+          <p className="text-white/70">Keep the convo alive without lifting a finger. We know just what to say to keep them hooked! 💋</p>
         </motion.div>
 
         <motion.div
@@ -22,11 +22,11 @@ export const FeaturesGrid = () => (
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="hotbot-card"
+          className="relative overflow-hidden rounded-3xl border border-pink-500/20 bg-gradient-to-br from-purple-900/80 to-pink-500/20 backdrop-blur-xl p-8 shadow-lg hover:shadow-pink-500/20"
         >
-          <Shield className="h-12 w-12 text-hotbot-accent mb-6" />
-          <h3 className="text-2xl font-bold text-white mb-4">Privacy First 🔒</h3>
-          <p className="text-white/70">Use your own number with complete discretion. Clients never know it's a bot.</p>
+          <Shield className="h-12 w-12 text-purple-400 mb-6" />
+          <h3 className="text-2xl font-bold text-white mb-4">Smart Filtering 🎯</h3>
+          <p className="text-white/70">We'll highlight the cash-ready cuties and filter out the time-wasters! 💸</p>
         </motion.div>
 
         <motion.div
@@ -34,11 +34,11 @@ export const FeaturesGrid = () => (
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="hotbot-card"
+          className="relative overflow-hidden rounded-3xl border border-pink-500/20 bg-gradient-to-br from-purple-900/80 to-pink-500/20 backdrop-blur-xl p-8 shadow-lg hover:shadow-pink-500/20"
         >
-          <Clock className="h-12 w-12 text-hotbot-primary mb-6" />
-          <h3 className="text-2xl font-bold text-white mb-4">Time Saver ⏰</h3>
-          <p className="text-white/70">Filter out time-wasters and focus on serious clients ready to book.</p>
+          <Sparkles className="h-12 w-12 text-pink-400 mb-6" />
+          <h3 className="text-2xl font-bold text-white mb-4">Personal Touch ✨</h3>
+          <p className="text-white/70">Customize your responses to keep things sexy and real! 💃</p>
         </motion.div>
       </div>
     </div>
