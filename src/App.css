@@ -13,11 +13,11 @@
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 2em rgba(255, 30, 86, 0.6));
+  filter: drop-shadow(0 0 2em rgba(147, 51, 234, 0.6));
 }
 
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em rgba(255, 105, 180, 0.6));
+  filter: drop-shadow(0 0 2em rgba(34, 211, 238, 0.6));
 }
 
 @keyframes logo-spin {
@@ -40,22 +40,26 @@
 }
 
 .read-the-docs {
-  color: rgba(255, 105, 180, 0.8);
+  color: rgba(147, 51, 234, 0.8);
 }
 
 .bordered-title {
-  border-bottom: 2px solid #FF1E56;
+  border-bottom: 2px solid #9333EA;
   padding-bottom: 4px;
   margin-bottom: 1rem;
-  color: #FF1E56;
+  color: #22D3EE;
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.3);
 }
 
-.flashing {
-  animation: flash 1s infinite;
+.neon-text {
+  animation: neon 1.5s ease-in-out infinite alternate;
 }
 
-@keyframes flash {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
+@keyframes neon {
+  from {
+    text-shadow: 0 0 10px #9333EA, 0 0 20px #9333EA, 0 0 30px #9333EA;
+  }
+  to {
+    text-shadow: 0 0 5px #9333EA, 0 0 10px #9333EA, 0 0 15px #9333EA;
+  }
 }
