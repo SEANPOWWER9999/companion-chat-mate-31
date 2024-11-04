@@ -6,6 +6,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        border: "hsl(var(--border))",
         hotbot: {
           primary: "#FF1493",    // Hot Pink
           secondary: "#00CCFF",  // Electric Blue

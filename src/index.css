@@ -23,7 +23,7 @@
 
 @layer base {
   * {
-    @apply border border-border; /* Ensure this class is defined */
+    @apply border border-pink-200;
   }
   body {
     @apply bg-gradient-to-br from-pink-100 via-purple-100 to-pink-100 font-roboto min-h-screen;
