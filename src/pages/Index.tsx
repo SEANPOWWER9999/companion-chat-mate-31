@@ -8,6 +8,10 @@ import { AutomatedResponses } from "@/components/landing/AutomatedResponses";
 import { AppointmentAlerts } from "@/components/landing/AppointmentAlerts";
 import { ClosingSection } from "@/components/landing/ClosingSection";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { Crown } from "lucide-react";
 
 const Index = () => {
   return (
@@ -28,6 +32,20 @@ const Index = () => {
         </div>
       </main>
       <ChatWidget />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="fixed bottom-4 left-4 z-50"
+      >
+        <Link to="/signup">
+          <Button
+            className="w-20 h-20 rounded-full bg-hotbot-gold hover:bg-hotbot-pink 
+                     shadow-lg transition-all duration-300 flex items-center justify-center"
+          >
+            <Crown className="w-10 h-10" />
+          </Button>
+        </Link>
+      </motion.div>
     </div>
   );
 };
