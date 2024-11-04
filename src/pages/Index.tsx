@@ -6,7 +6,6 @@ import { SmsSection } from "@/components/landing/SmsSection";
 import { AutomatedResponses } from "@/components/landing/AutomatedResponses";
 import { AppointmentAlerts } from "@/components/landing/AppointmentAlerts";
 import { ClosingSection } from "@/components/landing/ClosingSection";
-import { ChatWidget } from "@/components/chat/ChatWidget";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -27,7 +26,6 @@ const Index = () => {
           <ClosingSection />
         </div>
       </main>
-      <ChatWidget />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
