@@ -6,33 +6,33 @@
 
 @layer base {
   :root {
-    --background: 260 60% 5%;
-    --foreground: 210 40% 98%;
+    --background: 260 60% 97%;
+    --foreground: 260 60% 5%;
 
-    --card: 260 60% 7%;
-    --card-foreground: 210 40% 98%;
+    --card: 260 60% 98%;
+    --card-foreground: 260 60% 5%;
 
-    --popover: 260 60% 7%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 260 60% 98%;
+    --popover-foreground: 260 60% 5%;
 
-    --primary: 270 100% 56%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 326 100% 75%;
+    --primary-foreground: 260 60% 5%;
 
-    --secondary: 187 100% 50%;
+    --secondary: 270 100% 80%;
     --secondary-foreground: 260 60% 5%;
 
-    --muted: 260 60% 12%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 260 60% 92%;
+    --muted-foreground: 260 60% 40%;
 
-    --accent: 302 100% 83%;
+    --accent: 326 100% 85%;
     --accent-foreground: 260 60% 5%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 260 60% 98%;
 
-    --border: 260 60% 12%;
-    --input: 260 60% 12%;
-    --ring: 270 100% 56%;
+    --border: 260 60% 88%;
+    --input: 260 60% 88%;
+    --ring: 326 100% 75%;
 
     --radius: 1.5rem;
   }
@@ -53,18 +53,18 @@
 
 @layer components {
   .hotbot-gradient {
-    @apply bg-gradient-to-r from-hotbot-primary via-hotbot-accent to-hotbot-secondary;
+    @apply bg-gradient-to-r from-pink-300 via-pink-400 to-purple-300;
   }
 
   .hotbot-card {
-    @apply relative overflow-hidden rounded-3xl border border-hotbot-primary/20 bg-gradient-to-br from-hotbot-dark/80 to-hotbot-primary/20 backdrop-blur-xl p-6 shadow-lg transition-all hover:shadow-2xl hover:shadow-hotbot-primary/20;
+    @apply relative overflow-hidden rounded-3xl border border-pink-300/20 bg-gradient-to-br from-white/90 to-pink-100/50 backdrop-blur-xl p-6 shadow-lg transition-all hover:shadow-2xl hover:shadow-pink-300/20;
   }
 
   .hotbot-button {
-    @apply relative inline-flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-r from-hotbot-primary to-hotbot-secondary px-8 py-3 font-medium text-white transition-all hover:scale-105 hover:shadow-lg hover:shadow-hotbot-primary/50 animate-glow;
+    @apply relative inline-flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-r from-pink-400 to-purple-300 px-8 py-3 font-medium text-white transition-all hover:scale-105 hover:shadow-lg hover:shadow-pink-400/50 animate-glow;
   }
 
   .hotbot-input {
-    @apply rounded-xl border-2 border-hotbot-primary/20 bg-hotbot-dark/50 px-4 py-2 text-white placeholder:text-hotbot-light/50 focus:border-hotbot-secondary focus:outline-none focus:ring-2 focus:ring-hotbot-secondary/50 transition-all;
+    @apply rounded-xl border-2 border-pink-300/20 bg-white/90 px-4 py-2 text-pink-900 placeholder:text-pink-300/50 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400/50 transition-all;
   }
 }
