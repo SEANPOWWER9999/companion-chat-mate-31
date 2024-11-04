@@ -16,7 +16,7 @@ export const HeroSection = () => (
         transition={{ duration: 0.5, type: "spring" }}
         className="text-5xl font-bold bg-gradient-to-r from-[#FF0096] to-[#00CCFF] bg-clip-text text-transparent mb-4"
       >
-        Welcome to User Private Chat
+        Welcome to The HOTBOT
       </motion.h2>
       <motion.p 
         initial={{ opacity: 0 }}
@@ -24,8 +24,7 @@ export const HeroSection = () => (
         transition={{ delay: 0.3 }}
         className="text-gray-700 mb-8 max-w-2xl mx-auto"
       >
-        Experience secure and efficient communication with our advanced chatbot service. 
-        Perfect for managing profiles, client communications, and streamlined bookings.
+        Your ultimate AI companion for all things hot and trending! Experience secure and efficient communication with our advanced chatbot service.
       </motion.p>
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
