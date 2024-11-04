@@ -16,10 +16,10 @@ export const ChatWidget = () => {
       >
         <Button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-16 h-16 rounded-full bg-hotbot-coral hover:bg-hotbot-pink 
+          className="w-20 h-20 rounded-full bg-hotbot-coral hover:bg-hotbot-pink 
                    shadow-lg transition-all duration-300 flex items-center justify-center"
         >
-          <MessageCircle className={`w-8 h-8 transition-transform duration-300 ${isOpen ? 'rotate-90' : ''}`} />
+          <MessageCircle className={`w-10 h-10 transition-transform duration-300 ${isOpen ? 'rotate-90' : ''}`} />
         </Button>
       </motion.div>
 
@@ -29,7 +29,7 @@ export const ChatWidget = () => {
             initial={{ opacity: 0, y: 100, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.8 }}
-            className="fixed bottom-24 right-4 w-[350px] bg-white rounded-2xl shadow-2xl z-40
+            className="fixed bottom-28 right-4 w-[400px] bg-white rounded-2xl shadow-2xl z-40
                      border-2 border-hotbot-pink/20 overflow-hidden"
           >
             <div className="bg-gradient-hotbot p-4 flex justify-between items-center">
@@ -53,18 +53,18 @@ export const ChatWidget = () => {
               </div>
               <motion.div 
                 animate={{ 
-                  y: [0, -10, 0],
-                  scale: [1, 1.05, 1]
+                  y: [0, -20, 0],
+                  scale: [1, 1.1, 1]
                 }}
                 transition={{ 
-                  duration: 2,
+                  duration: 1.5,
                   repeat: Infinity,
                   repeatType: "reverse"
                 }}
                 className="flex justify-center mt-8"
               >
                 <Link to="/signup">
-                  <Button className="bg-hotbot-pink hover:bg-hotbot-coral text-white px-6 py-3 rounded-full font-bold
+                  <Button className="bg-hotbot-pink hover:bg-hotbot-coral text-white px-8 py-4 rounded-full text-xl font-bold
                                    shadow-lg hover:shadow-xl transition-all duration-300">
                     Sign Up Now! ✨
                   </Button>

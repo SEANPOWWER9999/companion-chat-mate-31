@@ -5,9 +5,9 @@ export const HotBotLogo = () => {
   return (
     <Link to="/" className="flex items-center gap-3 group">
       <div className="relative flex items-center">
-        <Smartphone className="w-8 h-8 text-hotbot-pink group-hover:rotate-12 transition-transform duration-300" />
+        <Smartphone className="w-10 h-10 text-hotbot-pink group-hover:rotate-12 transition-transform duration-300" />
         <div className="flex flex-col">
-          <span className="font-playfair font-black text-3xl md:text-4xl
+          <span className="font-playfair font-black text-4xl md:text-5xl
             bg-gradient-to-r from-hotbot-pink via-hotbot-coral to-hotbot-purple 
             bg-clip-text text-transparent 
             filter drop-shadow-lg 
