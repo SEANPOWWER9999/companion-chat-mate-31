@@ -6,33 +6,33 @@
 
 @layer base {
   :root {
-    --background: 260 60% 97%;
-    --foreground: 260 60% 5%;
+    --background: 48 100% 95%;    /* Soft Cream */
+    --foreground: 0 0% 20%;       /* Dark Charcoal */
 
-    --card: 260 60% 98%;
-    --card-foreground: 260 60% 5%;
+    --card: 48 100% 98%;
+    --card-foreground: 0 0% 20%;
 
-    --popover: 260 60% 98%;
-    --popover-foreground: 260 60% 5%;
+    --popover: 48 100% 98%;
+    --popover-foreground: 0 0% 20%;
 
-    --primary: 326 100% 75%;
-    --primary-foreground: 260 60% 5%;
+    --primary: 341 100% 62%;      /* Flashy Pink */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 270 100% 80%;
-    --secondary-foreground: 260 60% 5%;
+    --secondary: 5 100% 69%;      /* Coral */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 260 60% 92%;
-    --muted-foreground: 260 60% 40%;
+    --muted: 48 100% 90%;
+    --muted-foreground: 0 0% 40%;
 
-    --accent: 326 100% 85%;
-    --accent-foreground: 260 60% 5%;
+    --accent: 270 84% 56%;        /* Deep Purple */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 260 60% 98%;
+    --destructive-foreground: 48 100% 98%;
 
-    --border: 260 60% 88%;
-    --input: 260 60% 88%;
-    --ring: 326 100% 75%;
+    --border: 341 100% 62%;
+    --input: 341 100% 62%;
+    --ring: 341 100% 62%;
 
     --radius: 1.5rem;
   }
@@ -53,18 +53,28 @@
 
 @layer components {
   .hotbot-gradient {
-    @apply bg-gradient-to-r from-pink-300 via-pink-400 to-purple-300;
+    @apply bg-gradient-to-r from-[#FF3D81] via-[#FF6F61] to-[#9333EA];
   }
 
   .hotbot-card {
-    @apply relative overflow-hidden rounded-3xl border border-pink-300/20 bg-gradient-to-br from-white/90 to-pink-100/50 backdrop-blur-xl p-6 shadow-lg transition-all hover:shadow-2xl hover:shadow-pink-300/20;
+    @apply relative overflow-hidden rounded-3xl border border-[#FF3D81]/20 
+           bg-gradient-to-br from-[#FFF9E6] to-[#FF3D81]/10 
+           backdrop-blur-xl p-6 shadow-lg transition-all 
+           hover:shadow-2xl hover:shadow-[#FF3D81]/20;
   }
 
   .hotbot-button {
-    @apply relative inline-flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-r from-pink-400 to-purple-300 px-8 py-3 font-medium text-white transition-all hover:scale-105 hover:shadow-lg hover:shadow-pink-400/50 animate-glow;
+    @apply relative inline-flex items-center justify-center overflow-hidden 
+           rounded-2xl bg-gradient-to-r from-[#FF3D81] to-[#FF6F61] 
+           px-8 py-3 font-medium text-white transition-all 
+           hover:scale-105 hover:shadow-lg hover:shadow-[#FF3D81]/50 
+           animate-glow;
   }
 
   .hotbot-input {
-    @apply rounded-xl border-2 border-pink-300/20 bg-white/90 px-4 py-2 text-pink-900 placeholder:text-pink-300/50 focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400/50 transition-all;
+    @apply rounded-xl border-2 border-[#FF3D81]/20 bg-white/90 
+           px-4 py-2 text-[#333333] placeholder:text-[#FF3D81]/50 
+           focus:border-[#FF3D81] focus:outline-none focus:ring-2 
+           focus:ring-[#FF3D81]/50 transition-all;
   }
 }
