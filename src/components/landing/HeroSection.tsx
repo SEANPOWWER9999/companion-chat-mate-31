@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { Heart, Sparkles } from "lucide-react";
 
 export const HeroSection = () => (
   <section className="py-20 px-4">
@@ -52,18 +53,20 @@ export const HeroSection = () => (
           className="flex flex-col sm:flex-row justify-center gap-6"
         >
           <Button asChild size="lg" 
-            className="bg-gradient-to-r from-[#FF3D81] to-[#FF6F61] hover:from-[#FF6F61] hover:to-[#9333EA] 
-                     text-white rounded-full px-10 py-8 text-xl font-bold transform hover:scale-105 
-                     transition-all duration-300 shadow-lg hover:shadow-[#FF3D81]/50"
+            className="group bg-gradient-to-r from-[#FF3D81] to-[#FF6F61] hover:from-[#FF6F61] hover:to-[#9333EA] 
+                     text-white px-10 py-8 text-xl font-bold"
           >
-            <Link to="/signup">Get Started Now! 🚀</Link>
+            <Link to="/signup" className="flex items-center gap-2">
+              Get Started Now! <Heart className="w-6 h-6 transition-transform group-hover:scale-125" />
+            </Link>
           </Button>
           <Button asChild size="lg" variant="outline"
-            className="border-3 border-[#FF3D81] text-[#FF3D81] hover:bg-[#FF3D81]/10 
-                     rounded-full px-10 py-8 text-xl font-bold transform hover:scale-105 
-                     transition-all duration-300 shadow-lg hover:shadow-[#FF3D81]/30"
+            className="group border-3 border-[#FF3D81] text-[#FF3D81] hover:bg-[#FF3D81]/10 
+                     px-10 py-8 text-xl font-bold"
           >
-            <Link to="/learn-more">See The Magic ✨</Link>
+            <Link to="/learn-more" className="flex items-center gap-2">
+              See The Magic <Sparkles className="w-6 h-6 transition-transform group-hover:scale-125" />
+            </Link>
           </Button>
         </motion.div>
       </motion.div>

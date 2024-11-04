@@ -65,10 +65,10 @@
 
   .hotbot-button {
     @apply relative inline-flex items-center justify-center overflow-hidden 
-           rounded-2xl bg-gradient-to-r from-[#FF3D81] to-[#FF6F61] 
-           px-8 py-3 font-medium text-white transition-all 
+           rounded-[30px] bg-gradient-to-r from-[#FF3D81] to-[#FF6F61] 
+           px-8 py-4 font-medium text-white transition-all duration-300
            hover:scale-105 hover:shadow-lg hover:shadow-[#FF3D81]/50 
-           animate-glow;
+           active:translate-y-0.5 perspective-1000;
   }
 
   .hotbot-input {
@@ -76,5 +76,19 @@
            px-4 py-2 text-[#333333] placeholder:text-[#FF3D81]/50 
            focus:border-[#FF3D81] focus:outline-none focus:ring-2 
            focus:ring-[#FF3D81]/50 transition-all;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  .animate-button-pulse {
+    animation: pulse 0.3s ease-in-out;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
   }
 }
