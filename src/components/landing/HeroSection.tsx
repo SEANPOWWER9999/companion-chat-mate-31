@@ -19,7 +19,7 @@ export const HeroSection = () => (
           className="text-5xl md:text-8xl font-bold mb-8 text-transparent bg-clip-text 
                    bg-gradient-to-br from-[#FF1493] via-[#FF69B4] to-[#FF00FF] animate-glow"
         >
-          Ready to Slay? 💋
+          Welcome to WorkMyPhone! 💋
         </motion.h1>
         <motion.h2 
           initial={{ opacity: 0 }}
