@@ -18,6 +18,7 @@ export const PersonalProfile = ({ bio, interests, restrictions, onChange }: Pers
             value={bio}
             onChange={(e) => onChange({ bio: e.target.value, interests, restrictions })}
             className="android-input min-h-[100px]"
+            placeholder="Tell us about yourself"
           />
         </div>
         

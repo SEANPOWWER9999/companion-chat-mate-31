@@ -16,6 +16,7 @@ export const BasicInfo = ({ bodyType, languages, onChange }: BasicInfoProps) => 
             value={bodyType}
             onChange={(e) => onChange({ bodyType: e.target.value, languages })}
             className="android-input"
+            placeholder="Enter body type"
           />
         </div>
         <div className="mb-4">

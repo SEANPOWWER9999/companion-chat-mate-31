@@ -23,29 +23,29 @@ const Profile = () => {
   const { id } = useParams();
   
   const [profile, setProfile] = useState({
-    name: "Amanda",
-    city: "Los Angeles",
-    area: "Downtown",
-    bodyType: "Slim",
-    languages: ["English", "Spanish"],
-    bio: "Hi, I'm Amanda! I love meeting new people and creating meaningful connections.",
-    interests: ["Travel", "Art", "Music"],
-    restrictions: ["No explicit content", "Respect boundaries"],
-    paymentMethod: "Card",
-    cancellationPolicy: "24h notice required",
+    name: "",
+    city: "",
+    area: "",
+    bodyType: "",
+    languages: [],
+    bio: "",
+    interests: [],
+    restrictions: [],
+    paymentMethod: "",
+    cancellationPolicy: "",
     rates: {
-      "30min": { incall: "150", outcall: "200" },
-      "1hour": { incall: "250", outcall: "300" },
-      "overnight": { incall: "1000", outcall: "1200" }
+      "30min": { incall: null, outcall: null },
+      "1hour": { incall: null, outcall: null },
+      "overnight": { incall: null, outcall: null }
     },
     botConfig: {
-      character: "Friendly and professional",
-      knowledge: "Art, travel, culture",
-      style: "Casual but sophisticated"
+      character: "",
+      knowledge: "",
+      style: ""
     },
     botStats: {
-      messageCount: 1234,
-      freeTierEndsAt: "2024-04-01"
+      messageCount: 0,
+      freeTierEndsAt: ""
     }
   });
 
