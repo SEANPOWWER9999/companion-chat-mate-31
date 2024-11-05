@@ -13,6 +13,7 @@ import { BotStatistics } from "@/components/profile/BotStatistics";
 import { AdditionalInfo } from "@/components/profile/AdditionalInfo";
 import { Reviews } from "@/components/profile/Reviews";
 import { ChatbotConfig } from "@/components/profile/ChatbotConfig";
+import { HttpSmsSection } from "@/components/profile/HttpSmsSection";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ProfileSkeleton } from "@/components/profile/ProfileSkeleton";
@@ -85,87 +86,41 @@ const Profile = () => {
         />
       </Card>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-      >
-        <Card className="p-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
-          <ServicesSection
-            selectedServices={selectedServices}
-            isLocked={false}
-            onServicesChange={setSelectedServices}
-            onLockChange={() => {}}
-          />
-        </Card>
-      </motion.div>
+      <ServicesSection
+        selectedServices={selectedServices}
+        isLocked={false}
+        onServicesChange={setSelectedServices}
+        onLockChange={() => {}}
+      />
       
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        <Card className="p-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
-          <RatesSection
-            rates={profile.rates}
-            isLocked={false}
-            onRatesChange={(rates) => setProfile({ ...profile, rates })}
-            onLockChange={() => {}}
-          />
-        </Card>
-      </motion.div>
+      <RatesSection
+        rates={profile.rates}
+        isLocked={false}
+        onRatesChange={(rates) => setProfile({ ...profile, rates })}
+        onLockChange={() => {}}
+      />
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-      >
-        <Card className="p-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
-          <ChatbotConfig
-            character={profile.botConfig.character}
-            knowledge={profile.botConfig.knowledge}
-            style={profile.botConfig.style}
-            onConfigChange={(botConfig) => setProfile({ ...profile, botConfig })}
-          />
-        </Card>
-      </motion.div>
+      <HttpSmsSection />
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-      >
-        <Card className="p-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
-          <BotStatistics
-            messageCount={profile.botStats.messageCount}
-            freeTierEndsAt={profile.botStats.freeTierEndsAt}
-          />
-        </Card>
-      </motion.div>
+      <ChatbotConfig
+        character={profile.botConfig.character}
+        knowledge={profile.botConfig.knowledge}
+        style={profile.botConfig.style}
+        onConfigChange={(botConfig) => setProfile({ ...profile, botConfig })}
+      />
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
-      >
-        <Card className="p-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
-          <AdditionalInfo
-            paymentMethod={profile.paymentMethod}
-            cancellationPolicy={profile.cancellationPolicy}
-            onChange={(updates) => setProfile({ ...profile, ...updates })}
-          />
-        </Card>
-      </motion.div>
+      <BotStatistics
+        messageCount={profile.botStats.messageCount}
+        freeTierEndsAt={profile.botStats.freeTierEndsAt}
+      />
+
+      <AdditionalInfo
+        paymentMethod={profile.paymentMethod}
+        cancellationPolicy={profile.cancellationPolicy}
+        onChange={(updates) => setProfile({ ...profile, ...updates })}
+      />
       
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
-      >
-        <Card className="p-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
-          <Reviews reviews={[]} />
-        </Card>
-      </motion.div>
+      <Reviews reviews={[]} />
       
       <motion.div 
         className="flex flex-col gap-4 mb-8"
