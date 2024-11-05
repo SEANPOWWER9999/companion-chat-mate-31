@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ProfileHeader } from "@/components/profile/ProfileHeader";
@@ -5,34 +6,42 @@ import { LocationInfo } from "@/components/profile/LocationInfo";
 import { BasicInfo } from "@/components/profile/BasicInfo";
 import { PersonalProfile } from "@/components/profile/PersonalProfile";
 import { ServicesSection } from "@/components/profile/ServicesSection";
-import { RatesTable } from "@/components/profile/RatesTable";
+import { RatesSection } from "@/components/profile/RatesSection";
 import { BotStatistics } from "@/components/profile/BotStatistics";
 import { AdditionalInfo } from "@/components/profile/AdditionalInfo";
 import { Reviews } from "@/components/profile/Reviews";
-import { HttpSmsInstructions } from "@/components/profile/HttpSmsInstructions";
+import { ChatbotConfig } from "@/components/profile/ChatbotConfig";
 import { Link } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Card } from "@/components/ui/card";
 
 const Profile = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { id } = useParams();
+  
   const [profile, setProfile] = useState({
     name: "Amanda",
     city: "Los Angeles",
     area: "Downtown",
     bodyType: "Slim",
-    languages: ["English (Fluent)", "Chinese (Average)", "Spanish (Average)", "French (Average)"],
+    languages: ["English", "Spanish"],
     bio: "Hi, I'm Amanda! I love meeting new people and creating meaningful connections.",
-    interests: ["Travel", "Art", "Music", "Fine Dining"],
-    restrictions: [
-      "No explicit content",
-      "No aggressive behavior",
-      "Respect boundaries"
-    ],
+    interests: ["Travel", "Art", "Music"],
+    restrictions: ["No explicit content", "Respect boundaries"],
     paymentMethod: "Card",
-    cancellationPolicy: "None",
+    cancellationPolicy: "24h notice required",
+    rates: {
+      "30min": { incall: "150", outcall: "200" },
+      "1hour": { incall: "250", outcall: "300" },
+      "overnight": { incall: "1000", outcall: "1200" }
+    },
+    botConfig: {
+      character: "Friendly and professional",
+      knowledge: "Art, travel, culture",
+      style: "Casual but sophisticated"
+    },
     botStats: {
       messageCount: 1234,
       freeTierEndsAt: "2024-04-01"
@@ -59,6 +68,8 @@ const Profile = () => {
           restrictions: newProfile.restrictions,
           payment_method: newProfile.paymentMethod,
           cancellation_policy: newProfile.cancellationPolicy,
+          rates: newProfile.rates,
+          chatbot_config: newProfile.botConfig
         })
         .eq('id', id);
 
@@ -77,62 +88,76 @@ const Profile = () => {
     }
   };
 
-  const defaultRates = [
-    { duration: "1h", price: 20.00, shots: 1 },
-    { duration: "2h", price: 30.00, shots: 3 },
-    { duration: "3h", price: 40.00, shots: 4 },
-    { duration: "4h", price: 50.00, shots: 4 },
-    { duration: "6h", price: 60.00, shots: 5 },
-    { duration: "8h", price: 70.00, shots: 5 },
-  ];
-
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="max-w-2xl mx-auto p-4 space-y-6">
       <ProfileHeader name={profile.name} />
       
-      <LocationInfo 
-        city={profile.city}
-        area={profile.area}
-        onChange={(updates) => handleChange(updates)}
-      />
-      
-      <BasicInfo 
-        bodyType={profile.bodyType}
-        languages={profile.languages}
-        onChange={(updates) => handleChange(updates)}
-      />
+      <Card className="p-6 space-y-6">
+        <LocationInfo 
+          city={profile.city}
+          area={profile.area}
+          onChange={(updates) => handleChange(updates)}
+        />
+        
+        <BasicInfo 
+          bodyType={profile.bodyType}
+          languages={profile.languages}
+          onChange={(updates) => handleChange(updates)}
+        />
 
-      <PersonalProfile
-        bio={profile.bio}
-        interests={profile.interests}
-        restrictions={profile.restrictions}
-        onChange={(updates) => handleChange(updates)}
-      />
+        <PersonalProfile
+          bio={profile.bio}
+          interests={profile.interests}
+          restrictions={profile.restrictions}
+          onChange={(updates) => handleChange(updates)}
+        />
+      </Card>
       
-      <ServicesSection
-        selectedServices={selectedServices}
-        isLocked={false}
-        onServicesChange={setSelectedServices}
-        onLockChange={() => {}}
-      />
+      <Card className="p-6">
+        <ServicesSection
+          selectedServices={selectedServices}
+          isLocked={false}
+          onServicesChange={setSelectedServices}
+          onLockChange={() => {}}
+        />
+      </Card>
       
-      <RatesTable
-        rates={defaultRates}
-        onSelect={() => {}}
-      />
+      <Card className="p-6">
+        <RatesSection
+          rates={profile.rates}
+          isLocked={false}
+          onRatesChange={(rates) => handleChange({ rates })}
+          onLockChange={() => {}}
+        />
+      </Card>
 
-      <BotStatistics
-        messageCount={profile.botStats.messageCount}
-        freeTierEndsAt={profile.botStats.freeTierEndsAt}
-      />
+      <Card className="p-6">
+        <ChatbotConfig
+          character={profile.botConfig.character}
+          knowledge={profile.botConfig.knowledge}
+          style={profile.botConfig.style}
+          onConfigChange={(botConfig) => handleChange({ botConfig })}
+        />
+      </Card>
+
+      <Card className="p-6">
+        <BotStatistics
+          messageCount={profile.botStats.messageCount}
+          freeTierEndsAt={profile.botStats.freeTierEndsAt}
+        />
+      </Card>
       
-      <AdditionalInfo
-        paymentMethod={profile.paymentMethod}
-        cancellationPolicy={profile.cancellationPolicy}
-        onChange={(updates) => handleChange(updates)}
-      />
+      <Card className="p-6">
+        <AdditionalInfo
+          paymentMethod={profile.paymentMethod}
+          cancellationPolicy={profile.cancellationPolicy}
+          onChange={(updates) => handleChange(updates)}
+        />
+      </Card>
       
-      <Reviews reviews={[]} />
+      <Card className="p-6">
+        <Reviews reviews={[]} />
+      </Card>
       
       <div className="flex flex-col gap-4 mb-8">
         <Link 
@@ -164,8 +189,6 @@ const Profile = () => {
           </Button>
         </div>
       </div>
-
-      <HttpSmsInstructions />
     </div>
   );
 };
