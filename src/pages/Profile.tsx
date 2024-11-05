@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SimpleHeader } from "@/components/profile/SimpleHeader";
@@ -22,8 +22,7 @@ import { Header } from "@/components/layout/Header";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const { profile, setProfile, isLoading, error } = useProfileData(id);
+  const { profile, setProfile, isLoading, error } = useProfileData("current"); // Using a fixed ID for current user
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
   return (
@@ -45,7 +44,7 @@ const Profile = () => {
               {error || "Profile Not Found"}
             </h2>
             <p className="text-gray-600 mb-6">
-              Sorry, we couldn't find the profile you're looking for.
+              Sorry, we couldn't find your profile.
             </p>
             <Button 
               onClick={() => navigate('/')}
@@ -134,13 +133,6 @@ const Profile = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
           >
-            <Link 
-              to="/subscription" 
-              className="text-center text-hotbot-pink hover:text-hotbot-purple transition-colors"
-            >
-              Upgrade Your Plan
-            </Link>
-            
             <Button
               className="w-full bg-gradient-hotbot text-white hover:opacity-90 transition-opacity"
               onClick={() => {}}
