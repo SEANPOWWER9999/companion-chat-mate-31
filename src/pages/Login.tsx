@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,13 +22,13 @@ const Login = () => {
       });
       if (error) throw error;
       toast({
-        title: "Success",
-        description: "Logged in successfully",
+        title: "Welcome back! 💖",
+        description: "Successfully logged in",
       });
       navigate("/profile");
     } catch (error: any) {
       toast({
-        title: "Error",
+        title: "Oops! 😅",
         description: error.message,
         variant: "destructive",
       });
@@ -35,44 +36,44 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-800 to-red-900">
-      <div className="container mx-auto p-4 pt-20">
-        <div className="max-w-md mx-auto bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
-          <h2 className="text-2xl font-bold mb-4 text-white">Login</h2>
+    <div className="min-h-screen bg-gradient-hotbot flex items-center justify-center p-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-md"
+      >
+        <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
+          <h2 className="text-3xl font-bold mb-6 text-white text-center">Welcome Back! ✨</h2>
           <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <Input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-white/20 border-white/20 text-white placeholder:text-white/70"
-              />
-            </div>
-            <div>
-              <Input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="bg-white/20 border-white/20 text-white placeholder:text-white/70"
-              />
-            </div>
+            <Input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="bg-white/20 border-white/20 text-white placeholder:text-white/70"
+            />
+            <Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="bg-white/20 border-white/20 text-white placeholder:text-white/70"
+            />
             <Button 
               type="submit"
-              className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-full"
+              className="w-full bg-white text-hotbot-pink hover:bg-white/90"
             >
               Login
             </Button>
             <div className="text-center text-white/70">
               Don't have an account?{" "}
-              <Link to="/signup" className="text-pink-400 hover:text-pink-300">
+              <Link to="/signup" className="text-white hover:text-pink-200">
                 Sign up
               </Link>
             </div>
           </form>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
