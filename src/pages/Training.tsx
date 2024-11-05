@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { Shield, Brain } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Training = () => {
   const [username, setUsername] = useState("");
@@ -13,7 +15,6 @@ const Training = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // This is a placeholder for actual authentication logic
     toast({
       title: "Access Restricted",
       description: "Please contact your supervisor for access credentials.",
@@ -22,62 +23,59 @@ const Training = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-pink-50 p-6">
-      <div className="max-w-2xl mx-auto space-y-8">
-        <Card className="border-pink-100">
-          <CardHeader>
-            <CardTitle className="text-2xl text-gradient">HotBot Training Interface</CardTitle>
-            <CardDescription className="text-lg">
-              This is a restricted area for HotBot team members only. Here, authorized staff can
-              customize our chatbot's knowledge base and fine-tune its responses.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4 text-gray-600">
-              <p>🔒 <span className="font-semibold">Access Restricted:</span> This interface is exclusively for in-house staff responsible for:</p>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Training HotBot's conversation patterns</li>
-                <li>Updating response logic</li>
-                <li>Managing API integrations</li>
-                <li>Fine-tuning chatbot behavior</li>
-              </ul>
-              <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200 mt-4">
-                <p className="text-yellow-800">
-                  ⚠️ Note: This feature is not available for regular users. If you need access,
-                  please contact your team supervisor.
-                </p>
-              </div>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-white to-pink-50 flex items-center justify-center px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-md w-full"
+      >
+        <div className="bg-white p-8 rounded-xl shadow-lg border border-pink-100">
+          <div className="flex items-center gap-2 mb-6">
+            <Brain className="w-8 h-8 text-hotbot-pink" />
+            <h1 className="text-2xl font-bold text-gray-900">Trainer Access Only</h1>
+          </div>
+          
+          <p className="text-gray-600 mb-6">
+            This is a restricted area for HotBot trainers only. Please enter your credentials to continue.
+          </p>
 
-            <form onSubmit={handleLogin} className="mt-8 space-y-4">
-              <div>
-                <Input
-                  type="text"
-                  placeholder="Staff Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="input-primary"
-                />
-              </div>
-              <div>
-                <Input
-                  type="password"
-                  placeholder="Staff Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="input-primary"
-                />
-              </div>
-              <Button 
-                type="submit"
-                className="w-full btn-gradient"
-              >
-                Access Training Interface
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <Input
+                type="email"
+                placeholder="Trainer Email"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="bg-pink-50 border-pink-200 focus:border-pink-400"
+              />
+            </div>
+            <div>
+              <Input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="bg-pink-50 border-pink-200 focus:border-pink-400"
+              />
+            </div>
+            <Button 
+              type="submit"
+              className="w-full bg-gradient-to-r from-pink-400 to-purple-400 hover:from-pink-500 hover:to-purple-500"
+            >
+              Login to Training Interface
+            </Button>
+          </form>
+
+          <div className="mt-4 text-center">
+            <Link 
+              to="/admin"
+              className="text-hotbot-purple hover:text-hotbot-pink transition-colors duration-200"
+            >
+              Are you an admin? Login here →
+            </Link>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 };
