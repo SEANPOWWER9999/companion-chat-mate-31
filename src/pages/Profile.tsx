@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { ProfileHeader } from "@/components/profile/ProfileHeader";
 import { LocationInfo } from "@/components/profile/LocationInfo";
 import { BasicInfo } from "@/components/profile/BasicInfo";
@@ -14,7 +15,7 @@ import { ChatbotConfig } from "@/components/profile/ChatbotConfig";
 import { Link } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Card } from "@/components/ui/card";
+import { motion } from "framer-motion";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -89,10 +90,15 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4 space-y-6">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-2xl mx-auto p-4 space-y-6"
+    >
       <ProfileHeader name={profile.name} />
       
-      <Card className="p-6 space-y-6">
+      <Card className="p-6 space-y-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
         <LocationInfo 
           city={profile.city}
           area={profile.area}
@@ -113,53 +119,94 @@ const Profile = () => {
         />
       </Card>
       
-      <Card className="p-6">
-        <ServicesSection
-          selectedServices={selectedServices}
-          isLocked={false}
-          onServicesChange={setSelectedServices}
-          onLockChange={() => {}}
-        />
-      </Card>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <Card className="p-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
+          <ServicesSection
+            selectedServices={selectedServices}
+            isLocked={false}
+            onServicesChange={setSelectedServices}
+            onLockChange={() => {}}
+          />
+        </Card>
+      </motion.div>
       
-      <Card className="p-6">
-        <RatesSection
-          rates={profile.rates}
-          isLocked={false}
-          onRatesChange={(rates) => handleChange({ rates })}
-          onLockChange={() => {}}
-        />
-      </Card>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <Card className="p-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
+          <RatesSection
+            rates={profile.rates}
+            isLocked={false}
+            onRatesChange={(rates) => handleChange({ rates })}
+            onLockChange={() => {}}
+          />
+        </Card>
+      </motion.div>
 
-      <Card className="p-6">
-        <ChatbotConfig
-          character={profile.botConfig.character}
-          knowledge={profile.botConfig.knowledge}
-          style={profile.botConfig.style}
-          onConfigChange={(botConfig) => handleChange({ botConfig })}
-        />
-      </Card>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+      >
+        <Card className="p-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
+          <ChatbotConfig
+            character={profile.botConfig.character}
+            knowledge={profile.botConfig.knowledge}
+            style={profile.botConfig.style}
+            onConfigChange={(botConfig) => handleChange({ botConfig })}
+          />
+        </Card>
+      </motion.div>
 
-      <Card className="p-6">
-        <BotStatistics
-          messageCount={profile.botStats.messageCount}
-          freeTierEndsAt={profile.botStats.freeTierEndsAt}
-        />
-      </Card>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+      >
+        <Card className="p-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
+          <BotStatistics
+            messageCount={profile.botStats.messageCount}
+            freeTierEndsAt={profile.botStats.freeTierEndsAt}
+          />
+        </Card>
+      </motion.div>
       
-      <Card className="p-6">
-        <AdditionalInfo
-          paymentMethod={profile.paymentMethod}
-          cancellationPolicy={profile.cancellationPolicy}
-          onChange={(updates) => handleChange(updates)}
-        />
-      </Card>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+      >
+        <Card className="p-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
+          <AdditionalInfo
+            paymentMethod={profile.paymentMethod}
+            cancellationPolicy={profile.cancellationPolicy}
+            onChange={(updates) => handleChange(updates)}
+          />
+        </Card>
+      </motion.div>
       
-      <Card className="p-6">
-        <Reviews reviews={[]} />
-      </Card>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7 }}
+      >
+        <Card className="p-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
+          <Reviews reviews={[]} />
+        </Card>
+      </motion.div>
       
-      <div className="flex flex-col gap-4 mb-8">
+      <motion.div 
+        className="flex flex-col gap-4 mb-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8 }}
+      >
         <Link 
           to="/subscription" 
           className="text-center text-hotbot-pink hover:text-hotbot-purple transition-colors"
@@ -168,28 +215,29 @@ const Profile = () => {
         </Link>
         
         <Button
-          className="w-full bg-hotbot-pink hover:bg-hotbot-purple text-white"
+          className="w-full bg-gradient-hotbot text-white hover:opacity-90 transition-opacity"
           onClick={() => {}}
         >
           Start Chat Bot
         </Button>
         
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-4">
           <Button
-            variant="secondary"
+            variant="outline"
+            className="flex-1 border-hotbot-pink text-hotbot-pink hover:bg-hotbot-pink/10"
             onClick={() => navigate('/profiles')}
           >
             Back
           </Button>
           <Button
-            className="bg-hotbot-pink text-white"
+            className="flex-1 bg-gradient-hotbot text-white hover:opacity-90 transition-opacity"
             onClick={() => {}}
           >
             Send request
           </Button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
