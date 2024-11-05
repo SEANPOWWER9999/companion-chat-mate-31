@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SimpleHeader } from "@/components/profile/SimpleHeader";
@@ -9,24 +9,21 @@ import { BasicInfo } from "@/components/profile/BasicInfo";
 import { PersonalProfile } from "@/components/profile/PersonalProfile";
 import { ServicesSection } from "@/components/profile/ServicesSection";
 import { RatesSection } from "@/components/profile/RatesSection";
+import { HttpSmsSection } from "@/components/profile/HttpSmsSection";
+import { ChatbotConfig } from "@/components/profile/ChatbotConfig";
 import { BotStatistics } from "@/components/profile/BotStatistics";
 import { AdditionalInfo } from "@/components/profile/AdditionalInfo";
 import { Reviews } from "@/components/profile/Reviews";
-import { ChatbotConfig } from "@/components/profile/ChatbotConfig";
-import { HttpSmsSection } from "@/components/profile/HttpSmsSection";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ProfileSkeleton } from "@/components/profile/ProfileSkeleton";
 import { useProfileData } from "@/hooks/useProfileData";
-import { useToast } from "@/components/ui/use-toast";
 import { NavBar } from "@/components/landing/NavBar";
 import { Header } from "@/components/layout/Header";
 
 const Profile = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { toast } = useToast();
-  const { profile, setProfile, isLoading } = useProfileData(id);
+  const { profile, setProfile, isLoading, error } = useProfileData(id);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
   return (
@@ -41,11 +38,15 @@ const Profile = () => {
         <div className="max-w-2xl mx-auto p-4">
           <ProfileSkeleton />
         </div>
-      ) : !profile ? (
+      ) : error || !profile ? (
         <div className="max-w-2xl mx-auto p-8 text-center">
           <Card className="p-8 bg-white/80 backdrop-blur-sm border-pink-100">
-            <h2 className="text-2xl font-semibold text-hotbot-pink mb-4">Profile Not Found</h2>
-            <p className="text-gray-600 mb-6">Sorry, we couldn't find the profile you're looking for.</p>
+            <h2 className="text-2xl font-semibold text-hotbot-pink mb-4">
+              {error || "Profile Not Found"}
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Sorry, we couldn't find the profile you're looking for.
+            </p>
             <Button 
               onClick={() => navigate('/')}
               className="bg-gradient-hotbot text-white hover:opacity-90 transition-opacity"

@@ -5,6 +5,7 @@ import { useToast } from "@/components/ui/use-toast";
 export const useProfileData = (id: string | undefined) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [profile, setProfile] = useState({
     name: "",
     age: "",
@@ -37,26 +38,33 @@ export const useProfileData = (id: string | undefined) => {
     const fetchProfile = async () => {
       if (!id) {
         setIsLoading(false);
+        setError("No profile ID provided");
         return;
       }
       
       try {
-        const { data, error } = await supabase
+        const { data, error: supabaseError } = await supabase
           .from('profile_settings')
           .select('*')
           .eq('id', id)
           .single();
 
-        if (error) throw error;
-
-        if (data) {
-          setProfile(data);
+        if (supabaseError) {
+          throw supabaseError;
         }
+
+        if (!data) {
+          throw new Error("Profile not found");
+        }
+
+        setProfile(data);
+        setError(null);
       } catch (error) {
         console.error('Error fetching profile:', error);
+        setError(error instanceof Error ? error.message : "Failed to load profile");
         toast({
           title: "Error",
-          description: "Failed to load profile",
+          description: error instanceof Error ? error.message : "Failed to load profile",
           variant: "destructive",
         });
       } finally {
@@ -67,5 +75,5 @@ export const useProfileData = (id: string | undefined) => {
     fetchProfile();
   }, [id, toast]);
 
-  return { profile, setProfile, isLoading };
+  return { profile, setProfile, isLoading, error };
 };
