@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 export const SignupForm = () => {
   const [name, setName] = useState("");
@@ -11,24 +12,45 @@ export const SignupForm = () => {
   const [password, setPassword] = useState("");
   const [step, setStep] = useState(0);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const { error } = await supabase.auth.signUp({ 
+      // First create the user
+      const { data: authData, error: authError } = await supabase.auth.signUp({ 
         email, 
         password,
         options: {
           data: {
-            name: name
+            full_name: name
           }
         }
       });
-      if (error) throw error;
-      toast({
-        title: "Yasss Queen! 👑",
-        description: "Check your email to confirm your account!",
-      });
+
+      if (authError) throw authError;
+
+      if (authData.user) {
+        // Create the profile
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert([
+            { 
+              id: authData.user.id,
+              full_name: name,
+            }
+          ]);
+
+        if (profileError) throw profileError;
+
+        toast({
+          title: "Welcome aboard! 👑",
+          description: "Check your email to confirm your account!",
+        });
+        
+        // Redirect to login page after successful signup
+        navigate('/login');
+      }
     } catch (error: any) {
       toast({
         title: "Oops! 😅",
@@ -84,12 +106,16 @@ export const SignupForm = () => {
         animate={{ opacity: 1, x: 0 }}
         className="space-y-4"
       >
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">
+          {currentQuestion.label}
+        </h3>
         <Input
           type={currentQuestion.type}
           placeholder={currentQuestion.placeholder}
           value={currentQuestion.value}
           onChange={(e) => currentQuestion.onChange(e.target.value)}
           className="bg-pink-50 border-pink-200 focus:border-pink-400"
+          required
         />
         <Button 
           type="submit"
