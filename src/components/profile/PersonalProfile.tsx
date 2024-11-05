@@ -1,10 +1,49 @@
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
 interface PersonalProfileProps {
   bio: string;
   interests: string[];
   restrictions: string[];
+  isEditing?: boolean;
+  onChange?: (updates: { bio: string; interests: string[]; restrictions: string[] }) => void;
 }
 
-export const PersonalProfile = ({ bio, interests, restrictions }: PersonalProfileProps) => {
+export const PersonalProfile = ({ bio, interests, restrictions, isEditing, onChange }: PersonalProfileProps) => {
+  if (isEditing && onChange) {
+    return (
+      <div className="mb-4 space-y-4">
+        <div>
+          <h2 className="text-lg font-semibold">About Me</h2>
+          <Textarea
+            value={bio}
+            onChange={(e) => onChange({ bio: e.target.value, interests, restrictions })}
+            className="min-h-[100px]"
+          />
+        </div>
+        
+        <div>
+          <h2 className="text-lg font-semibold">Interests</h2>
+          <Input
+            value={interests.join(", ")}
+            onChange={(e) => onChange({ bio, interests: e.target.value.split(", "), restrictions })}
+            placeholder="Separate interests with comma"
+          />
+        </div>
+        
+        <div>
+          <h2 className="text-lg font-semibold">Restrictions</h2>
+          <Textarea
+            value={restrictions.join("\n")}
+            onChange={(e) => onChange({ bio, interests, restrictions: e.target.value.split("\n").filter(r => r.trim()) })}
+            placeholder="One restriction per line"
+            className="min-h-[100px]"
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mb-4 space-y-4">
       <div>

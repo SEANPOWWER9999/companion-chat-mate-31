@@ -12,14 +12,15 @@ import { AdditionalInfo } from "@/components/profile/AdditionalInfo";
 import { Reviews } from "@/components/profile/Reviews";
 import { HttpSmsInstructions } from "@/components/profile/HttpSmsInstructions";
 import { Link } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const { id } = useParams();
-  const [selectedServices, setSelectedServices] = useState<string[]>([]);
-
-  // In a real app, you would fetch this data using the id parameter
-  const profile = {
+  const [isEditing, setIsEditing] = useState(false);
+  const [profile, setProfile] = useState({
     name: "Amanda",
     city: "Los Angeles",
     area: "Downtown",
@@ -38,6 +39,42 @@ const Profile = () => {
       messageCount: 1234,
       freeTierEndsAt: "2024-04-01"
     }
+  });
+
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+
+  const handleSave = async () => {
+    try {
+      const { error } = await supabase
+        .from('profile_settings')
+        .update({
+          name: profile.name,
+          city: profile.city,
+          area: profile.area,
+          body_type: profile.bodyType,
+          languages: profile.languages,
+          bio: profile.bio,
+          interests: profile.interests,
+          restrictions: profile.restrictions,
+          payment_method: profile.paymentMethod,
+          cancellation_policy: profile.cancellationPolicy,
+        })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Profile updated successfully",
+      });
+      setIsEditing(false);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update profile",
+        variant: "destructive",
+      });
+    }
   };
 
   const defaultRates = [
@@ -51,27 +88,41 @@ const Profile = () => {
 
   return (
     <div className="max-w-md mx-auto p-4">
-      <ProfileHeader name={profile.name} />
+      <div className="flex justify-between items-center mb-4">
+        <ProfileHeader name={profile.name} />
+        <Button
+          variant="outline"
+          onClick={() => isEditing ? handleSave() : setIsEditing(true)}
+        >
+          {isEditing ? "Save Changes" : "Edit Profile"}
+        </Button>
+      </div>
       
       <LocationInfo 
         city={profile.city}
         area={profile.area}
+        isEditing={isEditing}
+        onChange={(updates) => setProfile(prev => ({ ...prev, ...updates }))}
       />
       
       <BasicInfo 
         bodyType={profile.bodyType}
         languages={profile.languages}
+        isEditing={isEditing}
+        onChange={(updates) => setProfile(prev => ({ ...prev, ...updates }))}
       />
 
       <PersonalProfile
         bio={profile.bio}
         interests={profile.interests}
         restrictions={profile.restrictions}
+        isEditing={isEditing}
+        onChange={(updates) => setProfile(prev => ({ ...prev, ...updates }))}
       />
       
       <ServicesSection
         selectedServices={selectedServices}
-        isLocked={false}
+        isLocked={!isEditing}
         onServicesChange={setSelectedServices}
         onLockChange={() => {}}
       />
@@ -79,6 +130,7 @@ const Profile = () => {
       <RatesTable
         rates={defaultRates}
         onSelect={() => {}}
+        isEditing={isEditing}
       />
 
       <BotStatistics
@@ -89,6 +141,8 @@ const Profile = () => {
       <AdditionalInfo
         paymentMethod={profile.paymentMethod}
         cancellationPolicy={profile.cancellationPolicy}
+        isEditing={isEditing}
+        onChange={(updates) => setProfile(prev => ({ ...prev, ...updates }))}
       />
       
       <Reviews reviews={[]} />
