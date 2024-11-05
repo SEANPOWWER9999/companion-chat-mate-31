@@ -15,9 +15,9 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex flex-col">
       <NavBar />
-      <main className="relative">
+      <main className="relative flex-grow">
         <div className="relative z-10 space-y-12 py-8">
           <WhyChooseUs />
           <FeaturesGrid />
@@ -28,23 +28,27 @@ const Index = () => {
           <ClosingSection />
         </div>
       </main>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="fixed bottom-4 right-4 z-50"
-      >
-        <Link to="/signup">
-          <Button
-            className="w-20 h-20 rounded-full bg-gradient-to-r from-hotbot-gold via-hotbot-pink to-hotbot-purple
-                     hover:from-hotbot-pink hover:via-hotbot-purple hover:to-hotbot-gold
-                     shadow-lg hover:shadow-xl transition-all duration-500 
-                     flex flex-col items-center justify-center border-2 border-white gap-1"
-          >
-            <Crown className="w-8 h-8 text-white" />
-            <span className="text-white text-sm font-bold">Sign Up</span>
-          </Button>
-        </Link>
-      </motion.div>
+
+      {/* Sign Up Button - positioned relative to main content */}
+      <div className="relative pb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed bottom-16 right-4 z-40"
+        >
+          <Link to="/signup">
+            <Button
+              className="w-20 h-20 rounded-full bg-gradient-to-r from-hotbot-gold via-hotbot-pink to-hotbot-purple
+                       hover:from-hotbot-pink hover:via-hotbot-purple hover:to-hotbot-gold
+                       shadow-lg hover:shadow-xl transition-all duration-500 
+                       flex flex-col items-center justify-center border-2 border-white gap-1"
+            >
+              <Crown className="w-8 h-8 text-white" />
+              <span className="text-white text-sm font-bold">Sign Up</span>
+            </Button>
+          </Link>
+        </motion.div>
+      </div>
 
       {/* Secret Charlie Banner */}
       <div 
