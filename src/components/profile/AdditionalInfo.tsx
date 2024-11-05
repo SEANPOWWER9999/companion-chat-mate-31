@@ -3,12 +3,11 @@ import { Input } from "@/components/ui/input";
 interface AdditionalInfoProps {
   paymentMethod: string;
   cancellationPolicy: string;
-  isEditing?: boolean;
   onChange?: (updates: { paymentMethod: string; cancellationPolicy: string }) => void;
 }
 
-export const AdditionalInfo = ({ paymentMethod, cancellationPolicy, isEditing, onChange }: AdditionalInfoProps) => {
-  if (isEditing && onChange) {
+export const AdditionalInfo = ({ paymentMethod, cancellationPolicy, onChange }: AdditionalInfoProps) => {
+  if (onChange) {
     return (
       <>
         <div className="mb-4">
@@ -16,6 +15,7 @@ export const AdditionalInfo = ({ paymentMethod, cancellationPolicy, isEditing, o
           <Input
             value={paymentMethod}
             onChange={(e) => onChange({ paymentMethod: e.target.value, cancellationPolicy })}
+            className="android-input"
           />
         </div>
         <div className="mb-4">
@@ -23,6 +23,7 @@ export const AdditionalInfo = ({ paymentMethod, cancellationPolicy, isEditing, o
           <Input
             value={cancellationPolicy}
             onChange={(e) => onChange({ paymentMethod, cancellationPolicy: e.target.value })}
+            className="android-input"
           />
         </div>
       </>

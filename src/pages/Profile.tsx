@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ProfileHeader } from "@/components/profile/ProfileHeader";
@@ -19,7 +18,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { id } = useParams();
-  const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     name: "Amanda",
     city: "Los Angeles",
@@ -43,21 +41,24 @@ const Profile = () => {
 
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
-  const handleSave = async () => {
+  const handleChange = async (updates: Partial<typeof profile>) => {
+    const newProfile = { ...profile, ...updates };
+    setProfile(newProfile);
+    
     try {
       const { error } = await supabase
         .from('profile_settings')
         .update({
-          name: profile.name,
-          city: profile.city,
-          area: profile.area,
-          body_type: profile.bodyType,
-          languages: profile.languages,
-          bio: profile.bio,
-          interests: profile.interests,
-          restrictions: profile.restrictions,
-          payment_method: profile.paymentMethod,
-          cancellation_policy: profile.cancellationPolicy,
+          name: newProfile.name,
+          city: newProfile.city,
+          area: newProfile.area,
+          body_type: newProfile.bodyType,
+          languages: newProfile.languages,
+          bio: newProfile.bio,
+          interests: newProfile.interests,
+          restrictions: newProfile.restrictions,
+          payment_method: newProfile.paymentMethod,
+          cancellation_policy: newProfile.cancellationPolicy,
         })
         .eq('id', id);
 
@@ -67,7 +68,6 @@ const Profile = () => {
         title: "Success",
         description: "Profile updated successfully",
       });
-      setIsEditing(false);
     } catch (error) {
       toast({
         title: "Error",
@@ -88,41 +88,30 @@ const Profile = () => {
 
   return (
     <div className="max-w-md mx-auto p-4">
-      <div className="flex justify-between items-center mb-4">
-        <ProfileHeader name={profile.name} />
-        <Button
-          variant="outline"
-          onClick={() => isEditing ? handleSave() : setIsEditing(true)}
-        >
-          {isEditing ? "Save Changes" : "Edit Profile"}
-        </Button>
-      </div>
+      <ProfileHeader name={profile.name} />
       
       <LocationInfo 
         city={profile.city}
         area={profile.area}
-        isEditing={isEditing}
-        onChange={(updates) => setProfile(prev => ({ ...prev, ...updates }))}
+        onChange={(updates) => handleChange(updates)}
       />
       
       <BasicInfo 
         bodyType={profile.bodyType}
         languages={profile.languages}
-        isEditing={isEditing}
-        onChange={(updates) => setProfile(prev => ({ ...prev, ...updates }))}
+        onChange={(updates) => handleChange(updates)}
       />
 
       <PersonalProfile
         bio={profile.bio}
         interests={profile.interests}
         restrictions={profile.restrictions}
-        isEditing={isEditing}
-        onChange={(updates) => setProfile(prev => ({ ...prev, ...updates }))}
+        onChange={(updates) => handleChange(updates)}
       />
       
       <ServicesSection
         selectedServices={selectedServices}
-        isLocked={!isEditing}
+        isLocked={false}
         onServicesChange={setSelectedServices}
         onLockChange={() => {}}
       />
@@ -130,7 +119,6 @@ const Profile = () => {
       <RatesTable
         rates={defaultRates}
         onSelect={() => {}}
-        isEditing={isEditing}
       />
 
       <BotStatistics
@@ -141,8 +129,7 @@ const Profile = () => {
       <AdditionalInfo
         paymentMethod={profile.paymentMethod}
         cancellationPolicy={profile.cancellationPolicy}
-        isEditing={isEditing}
-        onChange={(updates) => setProfile(prev => ({ ...prev, ...updates }))}
+        onChange={(updates) => handleChange(updates)}
       />
       
       <Reviews reviews={[]} />

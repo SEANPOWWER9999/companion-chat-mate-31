@@ -5,12 +5,11 @@ interface PersonalProfileProps {
   bio: string;
   interests: string[];
   restrictions: string[];
-  isEditing?: boolean;
   onChange?: (updates: { bio: string; interests: string[]; restrictions: string[] }) => void;
 }
 
-export const PersonalProfile = ({ bio, interests, restrictions, isEditing, onChange }: PersonalProfileProps) => {
-  if (isEditing && onChange) {
+export const PersonalProfile = ({ bio, interests, restrictions, onChange }: PersonalProfileProps) => {
+  if (onChange) {
     return (
       <div className="mb-4 space-y-4">
         <div>
@@ -18,7 +17,7 @@ export const PersonalProfile = ({ bio, interests, restrictions, isEditing, onCha
           <Textarea
             value={bio}
             onChange={(e) => onChange({ bio: e.target.value, interests, restrictions })}
-            className="min-h-[100px]"
+            className="android-input min-h-[100px]"
           />
         </div>
         
@@ -28,6 +27,7 @@ export const PersonalProfile = ({ bio, interests, restrictions, isEditing, onCha
             value={interests.join(", ")}
             onChange={(e) => onChange({ bio, interests: e.target.value.split(", "), restrictions })}
             placeholder="Separate interests with comma"
+            className="android-input"
           />
         </div>
         
@@ -37,7 +37,7 @@ export const PersonalProfile = ({ bio, interests, restrictions, isEditing, onCha
             value={restrictions.join("\n")}
             onChange={(e) => onChange({ bio, interests, restrictions: e.target.value.split("\n").filter(r => r.trim()) })}
             placeholder="One restriction per line"
-            className="min-h-[100px]"
+            className="android-input min-h-[100px]"
           />
         </div>
       </div>

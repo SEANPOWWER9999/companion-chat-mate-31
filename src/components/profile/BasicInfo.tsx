@@ -3,12 +3,11 @@ import { Input } from "@/components/ui/input";
 interface BasicInfoProps {
   bodyType: string;
   languages: string[];
-  isEditing?: boolean;
   onChange?: (updates: { bodyType: string; languages: string[] }) => void;
 }
 
-export const BasicInfo = ({ bodyType, languages, isEditing, onChange }: BasicInfoProps) => {
-  if (isEditing && onChange) {
+export const BasicInfo = ({ bodyType, languages, onChange }: BasicInfoProps) => {
+  if (onChange) {
     return (
       <>
         <div className="mb-4">
@@ -16,6 +15,7 @@ export const BasicInfo = ({ bodyType, languages, isEditing, onChange }: BasicInf
           <Input
             value={bodyType}
             onChange={(e) => onChange({ bodyType: e.target.value, languages })}
+            className="android-input"
           />
         </div>
         <div className="mb-4">
@@ -24,6 +24,7 @@ export const BasicInfo = ({ bodyType, languages, isEditing, onChange }: BasicInf
             value={languages.join(", ")}
             onChange={(e) => onChange({ bodyType, languages: e.target.value.split(", ") })}
             placeholder="Separate languages with comma"
+            className="android-input"
           />
         </div>
       </>
