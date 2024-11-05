@@ -14,6 +14,17 @@ import { Crown } from "lucide-react";
 const Index = () => {
   const navigate = useNavigate();
 
+  const handleCharlieClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Get the computed style of the element where the click occurred
+    const style = window.getComputedStyle(e.currentTarget);
+    const backgroundImage = style.backgroundImage;
+    
+    // Only navigate if the turquoise part was clicked (checking if the gradient contains teal)
+    if (backgroundImage.includes('teal')) {
+      navigate('/story');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <NavBar />
@@ -52,7 +63,7 @@ const Index = () => {
 
       {/* Secret Charlie Banner */}
       <div 
-        onClick={() => navigate('/story')}
+        onClick={handleCharlieClick}
         className="w-full py-2 bg-gradient-to-r from-pink-300 via-purple-300 to-teal-300 cursor-pointer hover:from-teal-300 hover:via-purple-300 hover:to-pink-300 transition-all duration-500"
       >
         <p className="text-center text-xs font-dancing text-white">

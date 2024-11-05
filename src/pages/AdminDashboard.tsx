@@ -105,6 +105,15 @@ const AdminDashboard = () => {
                 Login to Admin Dashboard
               </Button>
             </form>
+
+            <div className="mt-4 text-center">
+              <Link 
+                to="/training"
+                className="text-hotbot-purple hover:text-hotbot-pink transition-colors duration-200"
+              >
+                Are you a trainer? Login here →
+              </Link>
+            </div>
           </div>
         </motion.div>
       </div>
