@@ -13,81 +13,23 @@ import { AdditionalInfo } from "@/components/profile/AdditionalInfo";
 import { Reviews } from "@/components/profile/Reviews";
 import { ChatbotConfig } from "@/components/profile/ChatbotConfig";
 import { Link } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
+import { ProfileSkeleton } from "@/components/profile/ProfileSkeleton";
+import { useProfileData } from "@/hooks/useProfileData";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const { id } = useParams();
-  
-  const [profile, setProfile] = useState({
-    name: "",
-    city: "",
-    area: "",
-    bodyType: "",
-    languages: [],
-    bio: "",
-    interests: [],
-    restrictions: [],
-    paymentMethod: "",
-    cancellationPolicy: "",
-    rates: {
-      "30min": { incall: null, outcall: null },
-      "1hour": { incall: null, outcall: null },
-      "overnight": { incall: null, outcall: null }
-    },
-    botConfig: {
-      character: "",
-      knowledge: "",
-      style: ""
-    },
-    botStats: {
-      messageCount: 0,
-      freeTierEndsAt: ""
-    }
-  });
-
+  const { profile, setProfile, isLoading } = useProfileData(id);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
-  const handleChange = async (updates: Partial<typeof profile>) => {
-    const newProfile = { ...profile, ...updates };
-    setProfile(newProfile);
-    
-    try {
-      const { error } = await supabase
-        .from('profile_settings')
-        .update({
-          name: newProfile.name,
-          city: newProfile.city,
-          area: newProfile.area,
-          body_type: newProfile.bodyType,
-          languages: newProfile.languages,
-          bio: newProfile.bio,
-          interests: newProfile.interests,
-          restrictions: newProfile.restrictions,
-          payment_method: newProfile.paymentMethod,
-          cancellation_policy: newProfile.cancellationPolicy,
-          rates: newProfile.rates,
-          chatbot_config: newProfile.botConfig
-        })
-        .eq('id', id);
-
-      if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: "Profile updated successfully",
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to update profile",
-        variant: "destructive",
-      });
-    }
-  };
+  if (isLoading) {
+    return (
+      <div className="max-w-2xl mx-auto p-4">
+        <ProfileSkeleton />
+      </div>
+    );
+  }
 
   return (
     <motion.div 
@@ -102,20 +44,20 @@ const Profile = () => {
         <LocationInfo 
           city={profile.city}
           area={profile.area}
-          onChange={(updates) => handleChange(updates)}
+          onChange={(updates) => setProfile({ ...profile, ...updates })}
         />
         
         <BasicInfo 
           bodyType={profile.bodyType}
           languages={profile.languages}
-          onChange={(updates) => handleChange(updates)}
+          onChange={(updates) => setProfile({ ...profile, ...updates })}
         />
 
         <PersonalProfile
           bio={profile.bio}
           interests={profile.interests}
           restrictions={profile.restrictions}
-          onChange={(updates) => handleChange(updates)}
+          onChange={(updates) => setProfile({ ...profile, ...updates })}
         />
       </Card>
       
@@ -143,7 +85,7 @@ const Profile = () => {
           <RatesSection
             rates={profile.rates}
             isLocked={false}
-            onRatesChange={(rates) => handleChange({ rates })}
+            onRatesChange={(rates) => setProfile({ ...profile, rates })}
             onLockChange={() => {}}
           />
         </Card>
@@ -159,7 +101,7 @@ const Profile = () => {
             character={profile.botConfig.character}
             knowledge={profile.botConfig.knowledge}
             style={profile.botConfig.style}
-            onConfigChange={(botConfig) => handleChange({ botConfig })}
+            onConfigChange={(botConfig) => setProfile({ ...profile, botConfig })}
           />
         </Card>
       </motion.div>
@@ -186,7 +128,7 @@ const Profile = () => {
           <AdditionalInfo
             paymentMethod={profile.paymentMethod}
             cancellationPolicy={profile.cancellationPolicy}
-            onChange={(updates) => handleChange(updates)}
+            onChange={(updates) => setProfile({ ...profile, ...updates })}
           />
         </Card>
       </motion.div>
