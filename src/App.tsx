@@ -4,7 +4,6 @@ import Login from "@/pages/Login";
 import Profile from "@/pages/Profile";
 import AdminDashboard from "@/pages/AdminDashboard";
 import Training from "@/pages/Training";
-import AdminLogin from "@/pages/AdminLogin";
 import TrainerLogin from "@/pages/TrainerLogin";
 import ChatSignup from "@/pages/ChatSignup";
 import HotBotStory from "@/pages/HotBotStory";
@@ -20,7 +19,6 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/training" element={<Training />} />
-        <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/trainer-login" element={<TrainerLogin />} />
         <Route path="/story" element={<HotBotStory />} />
       </Routes>
