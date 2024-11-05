@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Index from "@/pages/Index";
 import Login from "@/pages/Login";
-import Profiles from "@/pages/Profiles";
 import Profile from "@/pages/Profile";
 import AdminDashboard from "@/pages/AdminDashboard";
 import Training from "@/pages/Training";
@@ -18,7 +17,6 @@ const App = () => {
         <Route path="/" element={<Index />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<ChatSignup />} />
-        <Route path="/profiles" element={<Profiles />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/training" element={<Training />} />
