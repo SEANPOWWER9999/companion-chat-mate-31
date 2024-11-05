@@ -58,6 +58,12 @@ export const ClosingSection = () => (
               </Link>
             </Button>
           </div>
+          
+          <div className="mt-8 text-sm text-gray-500">
+            <Link to="/story" className="hover:text-hotbot-pink transition-colors">
+              The HotBot Story
+            </Link>
+          </div>
         </motion.div>
       </motion.div>
     </div>

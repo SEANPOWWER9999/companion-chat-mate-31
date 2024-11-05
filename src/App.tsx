@@ -7,6 +7,7 @@ import Training from "@/pages/Training";
 import AdminLogin from "@/pages/AdminLogin";
 import TrainerLogin from "@/pages/TrainerLogin";
 import ChatSignup from "@/pages/ChatSignup";
+import HotBotStory from "@/pages/HotBotStory";
 import { Toaster } from "@/components/ui/toaster";
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/training" element={<Training />} />
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/trainer-login" element={<TrainerLogin />} />
+        <Route path="/story" element={<HotBotStory />} />
       </Routes>
       <Toaster />
     </Router>
