@@ -15,12 +15,13 @@ const Index = () => {
   const navigate = useNavigate();
 
   const handleCharlieClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Get the computed style of the element where the click occurred
-    const style = window.getComputedStyle(e.currentTarget);
-    const backgroundImage = style.backgroundImage;
+    // Get click position relative to the element
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const width = rect.width;
     
-    // Only navigate if the turquoise part was clicked (checking if the gradient contains teal)
-    if (backgroundImage.includes('teal')) {
+    // If click is in the last third of the element (where teal is), navigate
+    if (x > width * 0.66) {
       navigate('/story');
     }
   };
@@ -40,7 +41,7 @@ const Index = () => {
         </div>
       </main>
 
-      {/* Sign Up Button - positioned relative to main content */}
+      {/* Sign Up Button */}
       <div className="relative pb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -64,7 +65,7 @@ const Index = () => {
       {/* Secret Charlie Banner */}
       <div 
         onClick={handleCharlieClick}
-        className="w-full py-2 bg-gradient-to-r from-pink-300 via-purple-300 to-teal-300 cursor-pointer hover:from-teal-300 hover:via-purple-300 hover:to-pink-300 transition-all duration-500"
+        className="w-full py-2 bg-gradient-to-r from-pink-300 via-purple-300 to-teal-300 cursor-pointer transition-all duration-500"
       >
         <p className="text-center text-xs font-dancing text-white">
           Charlie Love
