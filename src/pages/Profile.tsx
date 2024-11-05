@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ProfileHeader } from "@/components/profile/ProfileHeader";
 import { BasicInfo } from "@/components/profile/BasicInfo";
@@ -11,6 +11,7 @@ import { HttpSmsInstructions } from "@/components/profile/HttpSmsInstructions";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
   const defaultRates = [
@@ -22,13 +23,22 @@ const Profile = () => {
     { duration: "8h", price: 70.00, shots: 5 },
   ];
 
+  // In a real app, you would fetch the profile data using the id parameter
+  const profile = {
+    name: "Amanda",
+    bodyType: "Slim",
+    languages: ["English (Fluent)", "Chinese (Average)", "Spanish (Average)", "French (Average)"],
+    paymentMethod: "Card",
+    cancellationPolicy: "None"
+  };
+
   return (
     <div className="max-w-md mx-auto p-4">
-      <ProfileHeader name="Amanda" />
+      <ProfileHeader name={profile.name} />
       
       <BasicInfo 
-        bodyType="Slim"
-        languages={["English (Fluent)", "Chinese (Average)", "Spanish (Average)", "French (Average)"]}
+        bodyType={profile.bodyType}
+        languages={profile.languages}
       />
       
       <ServicesSection
@@ -44,8 +54,8 @@ const Profile = () => {
       />
       
       <AdditionalInfo
-        paymentMethod="Card"
-        cancellationPolicy="None"
+        paymentMethod={profile.paymentMethod}
+        cancellationPolicy={profile.cancellationPolicy}
       />
       
       <Reviews reviews={[]} />
@@ -53,7 +63,7 @@ const Profile = () => {
       <div className="flex justify-between mb-8">
         <Button
           variant="secondary"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/profiles')}
         >
           Back
         </Button>
