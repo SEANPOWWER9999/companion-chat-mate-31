@@ -4,7 +4,6 @@ import Login from "@/pages/Login";
 import Profile from "@/pages/Profile";
 import AdminDashboard from "@/pages/AdminDashboard";
 import Training from "@/pages/Training";
-import TrainerLogin from "@/pages/TrainerLogin";
 import ChatSignup from "@/pages/ChatSignup";
 import HotBotStory from "@/pages/HotBotStory";
 import { Toaster } from "@/components/ui/toaster";
@@ -19,7 +18,6 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/training" element={<Training />} />
-        <Route path="/trainer-login" element={<TrainerLogin />} />
         <Route path="/story" element={<HotBotStory />} />
       </Routes>
       <Toaster />

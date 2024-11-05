@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Crown, Shield, Brain } from "lucide-react";
+import { Crown, Shield } from "lucide-react";
 
 export const ClosingSection = () => (
   <section className="bg-white py-24">
@@ -48,13 +48,8 @@ export const ClosingSection = () => (
           
           <div className="flex justify-center gap-4 mt-8 pt-8 border-t">
             <Button asChild variant="ghost" className="text-gray-600 hover:text-hotbot-purple">
-              <Link to="/admin-login" className="flex items-center gap-2">
+              <Link to="/admin" className="flex items-center gap-2">
                 <Shield className="w-4 h-4" /> Admin Login
-              </Link>
-            </Button>
-            <Button asChild variant="ghost" className="text-gray-600 hover:text-hotbot-coral">
-              <Link to="/trainer-login" className="flex items-center gap-2">
-                <Brain className="w-4 h-4" /> Trainer Login
               </Link>
             </Button>
           </div>
