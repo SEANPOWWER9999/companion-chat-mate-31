@@ -10,16 +10,16 @@ export const useProfileData = (id: string | undefined) => {
     city: "",
     area: "",
     bodyType: "",
-    languages: [],
+    languages: [] as string[],
     bio: "",
-    interests: [],
-    restrictions: [],
+    interests: [] as string[],
+    restrictions: [] as string[],
     paymentMethod: "",
     cancellationPolicy: "",
     rates: {
-      "30min": { incall: null, outcall: null },
-      "1hour": { incall: null, outcall: null },
-      "overnight": { incall: null, outcall: null }
+      "30min": { incall: null as string | null, outcall: null as string | null },
+      "1hour": { incall: null as string | null, outcall: null as string | null },
+      "overnight": { incall: null as string | null, outcall: null as string | null }
     },
     botConfig: {
       character: "",
@@ -28,13 +28,16 @@ export const useProfileData = (id: string | undefined) => {
     },
     botStats: {
       messageCount: 0,
-      freeTierEndsAt: ""
+      freeTierEndsAt: new Date().toISOString()
     }
   });
 
   useEffect(() => {
     const fetchProfile = async () => {
-      if (!id) return;
+      if (!id) {
+        setIsLoading(false);
+        return;
+      }
       
       try {
         const { data, error } = await supabase
@@ -49,6 +52,7 @@ export const useProfileData = (id: string | undefined) => {
           setProfile(data);
         }
       } catch (error) {
+        console.error('Error fetching profile:', error);
         toast({
           title: "Error",
           description: "Failed to load profile",

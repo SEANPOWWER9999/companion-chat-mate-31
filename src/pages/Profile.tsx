@@ -16,17 +16,35 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ProfileSkeleton } from "@/components/profile/ProfileSkeleton";
 import { useProfileData } from "@/hooks/useProfileData";
+import { useToast } from "@/components/ui/use-toast";
 
 const Profile = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { toast } = useToast();
   const { profile, setProfile, isLoading } = useProfileData(id);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
+  // Show loading skeleton while data is being fetched
   if (isLoading) {
     return (
       <div className="max-w-2xl mx-auto p-4">
         <ProfileSkeleton />
+      </div>
+    );
+  }
+
+  // Show error message if no profile data
+  if (!profile) {
+    toast({
+      title: "Error",
+      description: "Profile not found",
+      variant: "destructive",
+    });
+    return (
+      <div className="max-w-2xl mx-auto p-4 text-center">
+        <h2 className="text-xl font-semibold mb-4">Profile not found</h2>
+        <Button onClick={() => navigate('/profiles')}>Back to Profiles</Button>
       </div>
     );
   }
@@ -38,7 +56,7 @@ const Profile = () => {
       transition={{ duration: 0.5 }}
       className="max-w-2xl mx-auto p-4 space-y-6"
     >
-      <ProfileHeader name={profile.name} />
+      <ProfileHeader name={profile.name || 'New Profile'} />
       
       <Card className="p-6 space-y-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
         <LocationInfo 
@@ -118,7 +136,7 @@ const Profile = () => {
           />
         </Card>
       </motion.div>
-      
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
