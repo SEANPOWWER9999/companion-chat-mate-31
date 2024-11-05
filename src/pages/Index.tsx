@@ -8,10 +8,12 @@ import { AppointmentAlerts } from "@/components/landing/AppointmentAlerts";
 import { ClosingSection } from "@/components/landing/ClosingSection";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Crown } from "lucide-react";
 
 const Index = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-white">
       <NavBar />
@@ -43,6 +45,16 @@ const Index = () => {
           </Button>
         </Link>
       </motion.div>
+
+      {/* Secret Charlie Banner */}
+      <div 
+        onClick={() => navigate('/story')}
+        className="w-full py-2 bg-gradient-to-r from-pink-300 via-purple-300 to-teal-300 cursor-pointer hover:from-teal-300 hover:via-purple-300 hover:to-pink-300 transition-all duration-500"
+      >
+        <p className="text-center text-xs font-dancing text-white">
+          Charlie Love
+        </p>
+      </div>
     </div>
   );
 };
