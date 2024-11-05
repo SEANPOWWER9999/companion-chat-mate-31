@@ -7,6 +7,7 @@ export const useProfileData = (id: string | undefined) => {
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState({
     name: "",
+    age: "",
     city: "",
     area: "",
     bodyType: "",

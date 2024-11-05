@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ProfileHeader } from "@/components/profile/ProfileHeader";
+import { SimpleHeader } from "@/components/profile/SimpleHeader";
+import { ProfileBasicDetails } from "@/components/profile/ProfileBasicDetails";
 import { LocationInfo } from "@/components/profile/LocationInfo";
 import { BasicInfo } from "@/components/profile/BasicInfo";
 import { PersonalProfile } from "@/components/profile/PersonalProfile";
@@ -25,7 +26,6 @@ const Profile = () => {
   const { profile, setProfile, isLoading } = useProfileData(id);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
-  // Show loading skeleton while data is being fetched
   if (isLoading) {
     return (
       <div className="max-w-2xl mx-auto p-4">
@@ -34,7 +34,6 @@ const Profile = () => {
     );
   }
 
-  // Show error message if no profile data
   if (!profile) {
     toast({
       title: "Error",
@@ -56,9 +55,16 @@ const Profile = () => {
       transition={{ duration: 0.5 }}
       className="max-w-2xl mx-auto p-4 space-y-6"
     >
-      <ProfileHeader name={profile.name || 'New Profile'} />
+      <SimpleHeader onBack={() => navigate(-1)} />
       
       <Card className="p-6 space-y-6 bg-gradient-to-br from-white to-pink-50 border-pink-100">
+        <ProfileBasicDetails
+          name={profile.name || ''}
+          age={profile.age || ''}
+          bodyType={profile.bodyType}
+          onChange={(updates) => setProfile({ ...profile, ...updates })}
+        />
+        
         <LocationInfo 
           city={profile.city}
           area={profile.area}
@@ -78,7 +84,7 @@ const Profile = () => {
           onChange={(updates) => setProfile({ ...profile, ...updates })}
         />
       </Card>
-      
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
